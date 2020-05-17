@@ -4,6 +4,7 @@ import {from, Observable} from 'rxjs';
 
 import {Client, SearchResponse} from 'elasticsearch';
 import {Client as ClientJs} from 'elasticsearch-browser';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +39,7 @@ export class ElasticSearchService {
             // The name of the types in not the same as the package name,
             // so we instantiate it with its JS import and use its TS type elsewhere.
             this.client = new ClientJs({
-                host: 'localhost:4200'
+                host: environment.HOST_ELK
             });
         }
         return this.client;
