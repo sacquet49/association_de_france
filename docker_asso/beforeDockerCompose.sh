@@ -10,6 +10,7 @@ installNpm() {
   command -v nvm
   nvm ls-remote --lts
   nvm install v12.14.1
+  apt-get install wget
 }
 
 compilationAngular () {
@@ -35,6 +36,11 @@ deplacementIndexerPython () {
   cp -rf $SCRIPT_DIR/import-association/conf.json $SCRIPT_DIR/import-association/indexer
 }
 
+downloadZipAssociationFile () {
+	wget -O $SCRIPT_DIR/import-association/import/rna_import_.zip https://www.data.gouv.fr/fr/datasets/r/e2ec0ffa-dbf0-4c0a-ae3e-a0e76a6dec63
+	wget -O $SCRIPT_DIR/import-association/import/rna_waldec_.zip https://www.data.gouv.fr/fr/datasets/r/8c338cff-561e-4bbe-8973-7636a00282cc
+}
+
 date
 echo $SCRIPT_DIR
 date
@@ -46,3 +52,6 @@ deplacementFichierPhp
 date
 deplacementIndexerPython
 date
+downloadZipAssociationFile
+date
+
