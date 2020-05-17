@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_2oj-oJIzEeqNzbhiy-6o4Q" confirmationNeeded="false" name="Default">
+  <contextParameter xmi:id="_UUuFgJI0EeqNzbhiy-6o4Q" comment="" name="association_file" prompt="association_file?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_UUuFgZI0EeqNzbhiy-6o4Q" comment="" name="waldec_association_file" prompt="waldec_association_file?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_UUuskZI0EeqNzbhiy-6o4Q" comment="" name="db_host" prompt="db_host?" promptNeeded="false" type="id_String" value="localhost"/>
+  <contextParameter xmi:id="_UUuskpI0EeqNzbhiy-6o4Q" comment="" name="db_name" prompt="db_name?" promptNeeded="false" type="id_String" value="associations"/>
+  <contextParameter xmi:id="_UUusk5I0EeqNzbhiy-6o4Q" comment="" name="db_port" prompt="db_port?" promptNeeded="false" type="id_String" value="5432"/>
+  <contextParameter xmi:id="_UUuslJI0EeqNzbhiy-6o4Q" comment="" name="db_shema" prompt="db_shema?" promptNeeded="false" type="id_String" value="public"/>
+  <contextParameter xmi:id="_UUuslZI0EeqNzbhiy-6o4Q" comment="" name="db_user_name" prompt="db_user_name?" promptNeeded="false" type="id_String" value="u_asso_admin"/>
+  <contextParameter xmi:id="_UUuslpI0EeqNzbhiy-6o4Q" comment="" name="db_password" prompt="db_password?" promptNeeded="false" type="id_String" value="u_asso_admin"/>
+  <contextParameter xmi:id="_kuU7wJI1EeqNzbhiy-6o4Q" comment="" name="properties_filepath" prompt="properties_filepath?" promptNeeded="false" type="id_String" value=""/>
+</talendfile:ContextType>

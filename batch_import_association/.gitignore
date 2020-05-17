@@ -1,0 +1,9 @@
+**/jobInfo.properties
+.JETEmitters/
+.Java/
+.metadata/
+*.class
+IMPORTASSO/code/routines/system/*.*
+IMPORTASSO/temp/
+IMPORTASSO/sqlPatterns/
+IMPORTASSO/talend.project
