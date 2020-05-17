@@ -53,3 +53,14 @@ services:
           ELASTICSEARCH_HOSTS: http://es:9200
         depends_on:
           - es
+
+    kibana:
+        container_name: import-association
+        build: import-association
+        volumes:
+          - ./import-association/import:/root/import
+          - ./import-association/indexer:/root/indexer
+         depends_on:
+          - asso-db
+          - es
+          - kibana

@@ -744,7 +744,7 @@ COPY public.statistique (id, departement, nombre_association) FROM stdin;
 --
 
 COPY public.users (id, username, password, is_active, roles) FROM stdin;
-4	admintcg	$2y$13$vYmaCUe1DkuCqd1fa6RdFu29ILk2kleyjjEyMX7k6vqpkiy5FO8KG	t	ROLE_SUPER_ADMIN
+4	admin	$2y$13$vYmaCUe1DkuCqd1fa6RdFu29ILk2kleyjjEyMX7k6vqpkiy5FO8KG	t	ROLE_SUPER_ADMIN
 5	consultant	$2y$13$x6g9GBreClWSmUNguJD5.u2Ydmb8MtCJVPW7lcEAh47vM1Q.CjlmS	t	ROLE_USER_CLASSIC
 \.
 

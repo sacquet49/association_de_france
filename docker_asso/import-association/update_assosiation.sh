@@ -2,8 +2,8 @@
 
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-SISAC_MIG_INSTALL=$SCRIPT_DIR/integrationFichierCsv
-CONFIG=$SCRIPT_DIR/association.properties
+ASSO_INSTALL=$SCRIPT_DIR/integrationFichierCsv
+CONFIG=$SCRIPT_DIR/import/association.properties
 JAVA_BINARY=$1
 
 usage () {
@@ -17,13 +17,17 @@ fi
 
 installEnv() {
   sudo apt-get update -y
+  sudo apt install -y dirmngr
+  sudo apt-key adv -y --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EA8CACC073C3DB2A
+  echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/linuxuprising-java.list
+  sudo apt-get update -y
   sudo apt-get install -y python3 python3-pip libpq-dev oracle-java11-installer unzip
   sudo pip3 --yes install elasticsearch psycopg2
 }
 
 performIntegrationAssociation () {
 	{
-		bash -x $SISAC_MIG_INSTALL/integrationFichierCsv/integrationFichierCsv_run.sh --context_param properties_filepath=$CONFIG || RESULT=$?
+		bash -x $ASSO_INSTALL/integrationFichierCsv/integrationFichierCsv_run.sh --context_param properties_filepath=$CONFIG || RESULT=$?
 	} >&2
 	if [ -z "$RESULT" ] ; then
 		echo 0
@@ -33,27 +37,30 @@ performIntegrationAssociation () {
 }
 
 unzipBinairy () {
-	rm -rf $SISAC_MIG_INSTALL
-	rm -rf rejet_rma_import.csv
-	rm -rf rejet_rna_waldec.csv
-	rm -rf rna_import
-	rm -rf rna_waldec
-	unzip $JAVA_BINARY -d $SISAC_MIG_INSTALL
-	unzip rna_import_*.zip -d rna_import
-	unzip rna_waldec_*.zip -d rna_waldec
+	rm -rf $ASSO_INSTALL
+	rm -rf $SCRIPT_DIR/rna_import
+	rm -rf $SCRIPT_DIR/rna_waldec
+	unzip $JAVA_BINARY -d $ASSO_INSTALL
+	unzip $SCRIPT_DIR/import/rna_import_*.zip -d $SCRIPT_DIR/rna_import
+	unzip $SCRIPT_DIR/import/rna_waldec_*.zip -d $SCRIPT_DIR/rna_waldec
 }
 
 checkError () {
-  cat rna_import/*.rejet
-  cat rna_waldec/*.rejet
+  cat $SCRIPT_DIR/rna_import/*.rejet
+  cat $SCRIPT_DIR/rna_waldec/*.rejet
 }
 
 date
 installEnv
+date
 unzipBinairy
+date
 performIntegrationAssociation
+date
 checkError
 date
-
-
+python3 $SCRIPT_DIR/indexer/create_mappings.py
+date
+python3 $SCRIPT_DIR/indexer/index_all.py
+date
 
