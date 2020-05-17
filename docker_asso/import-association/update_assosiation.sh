@@ -16,13 +16,10 @@ if [ -z "$1" ]; then
 fi
 
 installEnv() {
-  sudo apt-get update -y
-  sudo apt install -y dirmngr
-  sudo apt-key adv -y --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EA8CACC073C3DB2A
-  echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/linuxuprising-java.list
-  sudo apt-get update -y
-  sudo apt-get install -y python3 python3-pip libpq-dev oracle-java11-installer unzip
-  sudo pip3 --yes install elasticsearch psycopg2
+  apt-get update -y
+  apt-get update -y
+  apt-get install -y python3 python3-pip libpq-dev default-jre unzip netcat
+  pip3 install elasticsearch psycopg2
 }
 
 performIntegrationAssociation () {
@@ -53,14 +50,21 @@ checkError () {
 date
 installEnv
 date
+while ! nc -z asso-db 5432; do
+	sleep 60
+done
+while ! nc -z es 9200; do
+	sleep 60
+done
+date
 unzipBinairy
 date
 performIntegrationAssociation
 date
 checkError
 date
-python3 $SCRIPT_DIR/indexer/create_mappings.py
+cd $SCRIPT_DIR/indexer
+python3 create_mappings.py
 date
-python3 $SCRIPT_DIR/indexer/index_all.py
+python3 index_all.py
 date
-

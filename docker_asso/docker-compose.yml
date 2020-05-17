@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     asso-db:        
-        container_name: asso-db2
+        container_name: asso-db
         build: asso-db
         ports:
             - "5432:5432"
@@ -23,6 +23,7 @@ services:
             - "80:80"
         depends_on:
             - php
+            - asso-db
      
     php:
         container_name: asso-php
@@ -30,6 +31,8 @@ services:
         restart: on-failure
         env_file:
             - ./php/back-asso/.env
+        depends_on:
+            - asso-db
             
     es:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
@@ -52,15 +55,15 @@ services:
         environment:
           ELASTICSEARCH_HOSTS: http://es:9200
         depends_on:
-          - es
+            - es
 
-    kibana:
+    import:
         container_name: import-association
         build: import-association
         volumes:
-          - ./import-association/import:/root/import
-          - ./import-association/indexer:/root/indexer
-         depends_on:
-          - asso-db
-          - es
-          - kibana
+            - ./import-association/import:/root/import
+            - ./import-association/indexer:/root/indexer
+        depends_on:
+            - asso-db
+            - es
+            - kibana
