@@ -1,4 +1,1 @@
-#!/bin/bash
-
-npm i
-npm run build
+#!/bin/bashSCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"cd $SCRIPT_DIR/../angularnpm inpm run buildcp -rf $SCRIPT_DIR/../angular $SCRIPT_DIR/nginx/front/public
