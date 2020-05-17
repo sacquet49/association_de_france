@@ -1,0 +1,38 @@
+settings:
+  index:
+    # single node, no sharding
+    number_of_shards: 1
+    number_of_replicas: 0
+    refresh_interval: 60s
+mappings:
+  dynamic: false
+  properties:
+    id: &fr_text
+      type: text
+      analyzer: french
+    id_ex: *fr_text
+    siret: *fr_text
+    gestion: *fr_text
+    date_creat: &t_date
+      type: date
+    date_publi: *t_date
+    nature: *fr_text
+    groupement: *fr_text
+    titre: *fr_text
+    objet: *fr_text
+    objet_social1: *fr_text
+    objet_social2: *fr_text
+    adr1: *fr_text
+    adr2: *fr_text
+    adr3: *fr_text
+    adrs_codepostal: *fr_text
+    libcom: *fr_text
+    adrs_codeinsee: *fr_text
+    dir_civilite: *fr_text
+    telephone: *fr_text
+    siteweb: *fr_text
+    email: *fr_text
+    observation: *fr_text
+    position: *fr_text
+    rup_mi: *fr_text
+    maj_time: *t_date

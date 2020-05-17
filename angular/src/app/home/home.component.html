@@ -1,0 +1,14 @@
+<div class="ui-g-10 ui-g-offset-1">
+    <h1 class="ass-label-gray card"> Annuaire des associations de France</h1>
+
+    <div class="d-flex">
+        <div class="ui-g-4" *ngFor="let nouvelle of nouvelles">
+            <div class="card card-w-title h-100">
+                <p-panel styleClass="h-100" [header]="nouvelle.titre" [toggleable]="false">
+                    {{nouvelle.description}}
+                </p-panel>
+            </div>
+        </div>
+    </div>
+
+</div>

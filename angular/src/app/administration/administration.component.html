@@ -1,0 +1,191 @@
+<div class="card card-w-title">
+  <p-tabView>
+
+    <p-tabPanel header="Nouvelles">
+      <div class="ui-g">
+        <div class="ui-g-10 ui-g-offset-1" *ngIf="!createNews">
+          <div class="ui-g-12">
+            <button pButton type="button" label="Créer une nouvelle" (click)="createNews = true" ></button>
+          </div>
+
+          <div class="ui-g-12">
+            <p-table [value]="listNouvelle">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Titre</th>
+                  <th>Description</th>
+                  <th>Date de création</th>
+                  <th>Supprimer</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-news>
+                <tr>
+                  <td>{{news.titre}}</td>
+                  <td>{{news.description}}</td>
+                  <td>{{news.date_creation | date:'longDate'}}</td>
+                  <td><button pButton type="button" icon="ui-icon-delete-forever" (click)="supprimerNouvelle(news)" ></button></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+        </div>
+
+        <div class="ui-g-10 ui-g-offset-1" *ngIf="createNews">
+
+          <h2>Création d'une nouvelle</h2>
+
+          <form [formGroup]="newsForm" (ngSubmit)="ajouterNouvelle(newsForm.value)">
+              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Titre *:
+                  </div>
+                  <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="titre" placeholder="Titre"/>
+                  </div>
+                  <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!newsForm.controls['titre'].valid && newsForm.controls['titre'].dirty">
+                      <i class="fa fa-close"></i>
+                      Titre obligatoire
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Description *:
+                  </div>
+                  <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="description" placeholder="Description"/>
+                  </div>
+                  <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!newsForm.controls['description'].valid && newsForm.controls['description'].dirty">
+                      <i class="fa fa-close"></i>
+                      Description obligatoire
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2"></div>
+                  <div class="ui-grid-col-3">
+                    <button pButton type="button" class="ui-secondary-button" label="Retour" (click)="newsForm.reset(); createNews = undefined;"></button>
+                  </div>
+                  <div class="ui-grid-col-3">
+                    <button pButton type="submit" label="Valider" [disabled]="!newsForm.valid"></button>
+                  </div>
+                  <div class="ui-grid-col-4"></div>
+                </div>
+
+              </div>
+          </form>
+        </div>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel header="Utilisateurs">
+      <div class="ui-g">
+        <div class="ui-g-10 ui-g-offset-1" *ngIf="!createUtilisateur">
+
+          <div class="ui-g-12">
+            <button pButton type="button" label="Créer un utilisateur" (click)="createUtilisateur = true" ></button>
+          </div>
+
+          <div class="ui-g-12">
+            <p-table [value]="listUtilisateurs">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Login</th>
+                  <th>Roles</th>
+                  <th>Est actif</th>
+                  <th>Supprimer</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-user>
+                <tr>
+                  <td>{{user.username}}</td>
+                  <td>{{user.roles}}</td>
+                  <td>{{user.is_active ?  'Oui' : 'Non'}}</td>
+                  <td><button pButton type="button" icon="ui-icon-delete-forever" (click)="supprimerUtilisateur(user)" ></button></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+        </div>
+
+        <div class="ui-g-10 ui-g-offset-1" *ngIf="createUtilisateur">
+
+          <h2>Création d'un nouvelle utilisateur</h2>
+
+          <form [formGroup]="newsUtilisateur" (ngSubmit)="ajouterUtilisateur(newsUtilisateur.value)">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Login *:
+                </div>
+                <div class="ui-grid-col-6">
+                  <input pInputText type="text" formControlName="username" placeholder="Login"/>
+                </div>
+                <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!newsUtilisateur.controls['username'].valid && newsUtilisateur.controls['username'].dirty">
+                    <i class="fa fa-close"></i>
+                    Login obligatoire
+                  </div>
+                </div>
+              </div>
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Mot de passe *:
+                </div>
+                <div class="ui-grid-col-6">
+                  <input type="password" pPassword formControlName="password" placeholder="Mot de passe"/>
+                </div>
+                <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!newsUtilisateur.controls['password'].valid && newsUtilisateur.controls['password'].dirty">
+                    <i class="fa fa-close"></i>
+                    Mot de passe obligatoire
+                  </div>
+                </div>
+              </div>
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Mot de passe (Confirmer) *:
+                </div>
+                <div class="ui-grid-col-6">
+                  <input type="password" pPassword formControlName="passwordrepeat" placeholder="Mot de passe (Confirmer)"/>
+                </div>
+                <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="(!newsUtilisateur.controls['passwordrepeat'].valid
+                  && newsUtilisateur.controls['passwordrepeat'].dirty) || !confirmPassword(newsUtilisateur.value)">
+                    <i class="fa fa-close"></i>
+                    Mot de passe différent du premier
+                  </div>
+                </div>
+              </div>
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2"></div>
+                <div class="ui-grid-col-3">
+                  <button pButton type="button" class="ui-secondary-button" label="Retour" (click)="newsUtilisateur.reset(); createUtilisateur = undefined;"></button>
+                </div>
+                <div class="ui-grid-col-3">
+                  <button pButton type="submit" label="Valider" [disabled]="!newsUtilisateur.valid || !confirmPassword(newsUtilisateur.value)"></button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </p-tabPanel>
+
+  </p-tabView>
+</div>

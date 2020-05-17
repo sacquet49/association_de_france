@@ -1,0 +1,181 @@
+<h1 class="ui-g-10 ui-g-offset-1"> Recherche des associations mise à jour après 2009</h1>
+
+<div *ngIf="!selectedAssociationTab">
+    <div class="ui-g-10 ui-g-offset-1">
+        <div class="ui-g-3">
+            <p-dropdown [options]="departementsDrop" [(ngModel)]="departementSelected"
+                        [style]="{'width':'100%'}" filter="true" (onChange)="getVille()"
+                        [showClear]="true" placeholder="Département">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span>{{item.label}}</span>
+                </ng-template>
+                <ng-template let-dep pTemplate="item">
+                    <div class="ui-helper-clearfix">
+                        {{dep.label}}
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="ui-g-3">
+            <p-dropdown [options]="villesDrop" [(ngModel)]="searcheParams.ville"
+                        [style]="{'width':'100%'}" filter="true" (onChange)="rechercher()"
+                        [showClear]="true" placeholder="Ville">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span>{{item.label}}</span>
+                </ng-template>
+                <ng-template let-dep pTemplate="item">
+                    <div class="ui-helper-clearfix">
+                        {{dep.label}}
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="ui-g-3">
+            <p-autoComplete [(ngModel)]="query.multi_match.query"
+                            [suggestions]="subjestAssociation"
+                            (completeMethod)="searchSubjestAsso()"
+                            (onSelect)="rechercher()"
+                            [minLength]="4"
+                            scrollHeight="450px"
+                            placeholder="Recherche par mot clé"
+                            styleClass="w-100"></p-autoComplete>
+        </div>
+        <div class="ui-g-2">
+            <button pButton type="button" label="Rechercher" pTooltip="Rechercher"
+                    [style]="{'width':'100%'}" (click)="rechercher()"></button>
+        </div>
+        <div class="ui-g-1">
+            <button pButton type="button" label="Vider" pTooltip="Vider les champs de recherche"
+                    [style]="{'width':'100%'}" (click)="resetFilter()"></button>
+        </div>
+    </div>
+</div>
+
+<div class="ui-g-10 ui-g-offset-1">
+    <p-table #tableAssociation [value]="associations"
+             [paginator]="true" [rows]="20" dataKey="id" [first]="'first'"
+             selectionMode="single" [(selection)]="selectedAssociationTab"
+             (onRowSelect)="getMap()" [hidden]="selectedAssociationTab">
+        <ng-template pTemplate="emptymessage">
+            Aucune associations trouvée
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Titre</th>
+                <th pSortableColumn="adrs_libcommune">
+                    Ville
+                    <p-sortIcon field="adrs_libcommune"></p-sortIcon>
+                </th>
+                <th>Adresse</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-asso>
+            <tr [pSelectableRow]="asso">
+                <td>{{asso.titre}}</td>
+                <td>{{asso.adrs_libcommune}}</td>
+                <td>{{asso.adrs_numvoie + ' ' + asso.adrs_typevoie + ' ' + asso.adrs_libvoie}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div *ngIf="selectedAssociationTab">
+    <div class="ui-g-10 ui-g-offset-1">
+        <p-fieldset legend="Détail">
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Titre :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.titre }}</div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Déscription :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.objet}}</div>
+                </div>
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Ville :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.adrs_libcommune}}</div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Code postal :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.adrs_codepostal}}</div>
+                </div>
+
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Adresse :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.adrs_numvoie + ' ' + selectedAssociationTab.adrs_typevoie + ' ' + selectedAssociationTab.adrs_libvoie}}</div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Date de publication :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.date_publi | date:'longDate'}}</div>
+                </div>
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Téléphone :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.telephone}}</div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Email :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.email }}</div>
+                </div>
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Siret :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.siret}}</div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Date de mise à jour :</div>
+                    <div class="ui-g-8">{{selectedAssociationTab.maj_time | date:'longDate' }}</div>
+                </div>
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Groupement :</div>
+                    <div class="ui-g-8" *ngIf="selectedAssociationTab.groupement === 'S'">
+                        Simple
+                    </div>
+                    <div class="ui-g-8" *ngIf="selectedAssociationTab.groupement === 'U'">
+                        Union
+                    </div>
+                    <div class="ui-g-8" *ngIf="selectedAssociationTab.groupement === 'F'">
+                        Fédération
+                    </div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4 ass-label-blue">Position d’activité de l’association :</div>
+                    <div class="ui-g-8" *ngIf="selectedAssociationTab.position === 'A'">
+                        Active
+                    </div>
+                    <div class="ui-g-8" *ngIf="selectedAssociationTab.position === 'D'">
+                        Dissoute
+                    </div>
+                    <div class="ui-g-8" *ngIf="selectedAssociationTab.position === 'S'">
+                        Supprimée
+                    </div>
+                </div>
+            </div>
+        </p-fieldset>
+    </div>
+
+
+    <div class="ui-g-10 ui-g-offset-1">
+        <ass-carte #carteLoc [name]="'carte-asso'" [latitude]="latitude" [longitude]="longitude"></ass-carte>
+    </div>
+
+    <div class="ui-g-10 ui-g-offset-1">
+        <div class="ui-rtl" dir="rtl">
+            <button pButton type="button" label="Retour" (click)="backTableau()"></button>
+        </div>
+    </div>
+</div>
+
