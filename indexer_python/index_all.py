@@ -34,22 +34,9 @@ def bulk(docs, indexName):
         print("Elasticsearch helpers.bulk() ERROR:", err)
         quit()
 
-
-for pathOfFile in glob.glob("./mapping/*_mapping.json"):
-
-    filenames = os.path.basename(pathOfFile).replace(".json", "").replace("_mapping", "")
-    with open(pathOfFile, encoding="utf8", errors='ignore') as json_file:
-        mapping = json.load(json_file)
-    cur = conn.cursor()
-    cur.execute(mapping["sql"])
-    docs = cur.fetchall()
-    cur.close()
-
-    io = StringIO(json.dumps(docs))
-    associations = json.load(io)[0][0]
-
+def indexer(docs):
     doc_list = []
-    for num, doc in enumerate(associations):
+    for num, doc in enumerate(docs):
         try:
             doc["_id"] = doc["id"]
             doc_list += [doc]
@@ -64,4 +51,24 @@ for pathOfFile in glob.glob("./mapping/*_mapping.json"):
 
     bulk(doc_list, filenames)
 
+def getSqlData(loop):
+    for i in range(int(loop)):
+        cur = conn.cursor()
+        cur.execute(mapping["sql"], (i * 100000,))
+        docs = cur.fetchall()
+        cur.close()
+        io = StringIO(json.dumps(docs))
+        associations = json.load(io)[0][0]
+        indexer(associations)
 
+for pathOfFile in glob.glob("./mapping/*_mapping.json"):
+
+    filenames = os.path.basename(pathOfFile).replace(".json", "").replace("_mapping", "")
+    with open(pathOfFile, encoding="utf8", errors='ignore') as json_file:
+        mapping = json.load(json_file)
+    cur = conn.cursor()
+    cur.execute(mapping["count"])
+    numbDocs = cur.fetchone()[0]
+    cur.close()
+    loop = (numbDocs / 100000) + 1
+    getSqlData(loop)
