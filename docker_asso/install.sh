@@ -57,4 +57,5 @@ deplacementIndexerPython
 date
 downloadZipAssociationFile
 date
-
+cd $SCRIPT_DIR
+docker-compose up --build

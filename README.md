@@ -4,9 +4,7 @@ Cette application est necessite docker la wsl pour être lancer dans un environe
 
 `$ cd docker_asso`
 
-`$ bash -xe beforeDockerCompose.sh`
-
-`$ docker-compose up --build`
+`$ bash -xe install.sh`
 
 L'application est accessible via un navigateur `localhost`
 
