@@ -10,13 +10,14 @@ installNpm() {
 	  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 	  command -v nvm
 	  nvm ls-remote --lts
-	  nvm install v12.14.1  
+	  nvm install v12.14.1
   fi
 }
 
 compilationAngular () {
   cd $SCRIPT_DIR/../angular
   npm i
+  npm i --save-dev typescript@3.8.3
   npm run build
   mkdir -p $SCRIPT_DIR/nginx/front/public
   cp -rf $SCRIPT_DIR/../angular/dist/* $SCRIPT_DIR/nginx/front/public
