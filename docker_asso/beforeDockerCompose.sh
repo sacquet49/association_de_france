@@ -3,20 +3,22 @@
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 installNpm() {
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  command -v nvm
-  nvm ls-remote --lts
-  nvm install v12.14.1
-  apt-get install wget
+  if [ ! -d ~/.nvm ]; then
+	  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+	  export NVM_DIR="$HOME/.nvm"
+	  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+	  command -v nvm
+	  nvm ls-remote --lts
+	  nvm install v12.14.1  
+  fi
 }
 
 compilationAngular () {
   cd $SCRIPT_DIR/../angular
   npm i
   npm run build
+  mkdir -p $SCRIPT_DIR/nginx/front/public
   cp -rf $SCRIPT_DIR/../angular/dist/* $SCRIPT_DIR/nginx/front/public
 }
 
