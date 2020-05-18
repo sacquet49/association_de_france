@@ -1,6 +1,6 @@
 # How to install this app
 
-Cette application est necessite docker la wsl pour être lancer dans un environement windows.
+Cette application necessite docker et la WSL pour être lancer dans un environement windows.
 
 `$ cd docker_asso`
 
