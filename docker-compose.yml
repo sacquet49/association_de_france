@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+    angular:
+        container_name: angular
+        build: angular
+        volumes:
+            - ./angular:/usr/app
