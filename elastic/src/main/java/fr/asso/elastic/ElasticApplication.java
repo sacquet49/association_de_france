@@ -24,6 +24,7 @@ public class ElasticApplication implements CommandLineRunner {
 
         Mapping mapWaldecAsso = new Mapping("mapping/waldec_association_mapping.json");
         indexer.createMapping(mapWaldecAsso);
+        indexer.indexAll(mapWaldecAsso);
         System.exit(0);
     }
 }

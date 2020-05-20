@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class DatabaseService {
@@ -24,22 +26,24 @@ public class DatabaseService {
         this.dataSource = dataSource;
     }
 
-    public String documents(String request, int offset) throws SQLException {
+    public Map<String, String> documents(String request, int offset) throws SQLException {
         Connection co = dataSource.getConnection();
+        Map<String, String> map = new HashMap<>();
         try {
             PreparedStatement st = co.prepareStatement(request);
             st.setInt(1, offset);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                return rs.getString(1);
+                map.put(rs.getString(1), rs.getString(2));
             }
+            return map;
         } catch (SQLException throwables) {
             logger.error(throwables.getMessage());
             throwables.printStackTrace();
         } finally {
             co.close();
         }
-        return null;
+        return map;
     }
 
     public Integer count(String countRequest) throws SQLException {
