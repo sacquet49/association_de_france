@@ -1,7 +1,7 @@
 {
-  "sql": "SELECT a.id, json_build_object('id', a.id,'titre', a.titre,'objet', a.objet,'adr1', a.adr1,'adrs_codepostal', a.adrs_codepostal,'libcom', a.libcom) FROM (SELECT id, titre, objet, adr1, adrs_codepostal, libcom FROM association ORDER BY id LIMIT 100000 OFFSET ? ) a",
+  "sql": "SELECT a.id, json_build_object('id', a.id,'titre', a.titre,'objet', a.objet,'adr1', a.adr1,'adrs_codepostal', a.adrs_codepostal,'libcom', a.libcom) FROM (SELECT id, titre, objet, adr1, adrs_codepostal, libcom FROM association ORDER BY id LIMIT ? OFFSET ? ) a",
   "count": "SELECT count(*) FROM association",
-  "name": "associations_java",
+  "name": "associations",
   "mapping": {
     "dynamic": false,
     "properties": {

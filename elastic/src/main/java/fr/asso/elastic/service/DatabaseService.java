@@ -31,7 +31,8 @@ public class DatabaseService {
         Map<String, String> map = new HashMap<>();
         try {
             PreparedStatement st = co.prepareStatement(request);
-            st.setInt(1, offset);
+            st.setInt(1, sizeOfLimit);
+            st.setInt(2, offset);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 map.put(rs.getString(1), rs.getString(2));

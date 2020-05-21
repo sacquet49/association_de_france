@@ -1,7 +1,7 @@
 {
-  "sql": "SELECT a.id, json_build_object('id', a.id,'titre', a.titre,'objet', a.objet, 'adrs_codepostal', a.adrs_codepostal,'adrs_libvoie', a.adrs_libvoie, 'adrs_libcommune',  a.adrs_libcommune, 'adrg_codepostal', a.adrg_codepostal, 'adrg_libvoie', a.adrg_libvoie, 'adrs_numvoie', a.adrs_numvoie, 'adrs_typevoie', a.adrs_typevoie) FROM (SELECT id, titre, objet, adrs_codepostal, adrs_libvoie,  adrs_libcommune, adrg_codepostal, adrg_libvoie, adrs_numvoie, adrs_typevoie FROM waldec_association ORDER BY id LIMIT 100000 OFFSET ? ) a",
+  "sql": "SELECT a.id, json_build_object('id', a.id,'titre', a.titre,'objet', a.objet, 'adrs_codepostal', a.adrs_codepostal,'adrs_libvoie', a.adrs_libvoie, 'adrs_libcommune',  a.adrs_libcommune, 'adrg_codepostal', a.adrg_codepostal, 'adrg_libvoie', a.adrg_libvoie, 'adrs_numvoie', a.adrs_numvoie, 'adrs_typevoie', a.adrs_typevoie) FROM (SELECT id, titre, objet, adrs_codepostal, adrs_libvoie,  adrs_libcommune, adrg_codepostal, adrg_libvoie, adrs_numvoie, adrs_typevoie FROM waldec_association ORDER BY id LIMIT ? OFFSET ? ) a",
   "count": "SELECT count(*) FROM waldec_association",
-  "name": "waldec_association_java",
+  "name": "waldec_association",
   "mapping": {
     "dynamic": false,
     "properties": {
