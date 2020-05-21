@@ -17,9 +17,7 @@ fi
 
 installEnv() {
   apt-get update -y
-  apt-get update -y
-  apt-get install -y python3 python3-pip libpq-dev default-jre unzip netcat
-  pip3 install elasticsearch psycopg2
+  apt-get install -y libpq-dev default-jre unzip netcat
 }
 
 performIntegrationAssociation () {
@@ -47,6 +45,11 @@ checkError () {
   cat $SCRIPT_DIR/rna_waldec/*.rejet
 }
 
+runindexer () {
+  cd $SCRIPT_DIR/indexer
+  java -jar elastic_indexer.jar --spring.config.location=application.properties
+}
+
 date
 installEnv
 date
@@ -63,8 +66,5 @@ performIntegrationAssociation
 date
 checkError
 date
-cd $SCRIPT_DIR/indexer
-python3 create_mappings.py
-date
-python3 index_all.py
+runindexer
 date

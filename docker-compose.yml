@@ -5,3 +5,9 @@ services:
         build: angular
         volumes:
             - ./angular:/usr/app
+    
+    indexer-elk:
+        container_name: indexer-elk
+        build: elastic
+        volumes:
+            - ./elastic:/usr/src

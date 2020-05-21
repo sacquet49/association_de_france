@@ -10,12 +10,12 @@
     </parent>
     <groupId>fr.asso</groupId>
     <artifactId>elastic</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>elastic</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Indexer des association</description>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>
