@@ -41,44 +41,11 @@ https://api.gouv.fr/api/api-geo.html
 
 https://developers.google.com/maps/documentation/javascript/?hl=fr
 https://github.com/Asymmetrik/ngx-leaflet#api
-
-## Installation de docker 
-
-    sudo apt-get install \
-        apt-transport-https \
-        ca-certificates \
-        curl \
-        software-properties-common
-    
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    
-    sudo apt-key fingerprint 0EBFCD88
-    
-    pub   4096R/0EBFCD88 2017-02-22
-          Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-    uid                  Docker Release (CE deb) <docker@docker.com>
-    sub   4096R/F273FCD8 2017-02-22
-    
-    sudo apt-get update
-    
-    sudo apt-get install docker-ce
-
-    su - posgres
-    pwd : pg
-    
-    /usr/local/pgsql/bin/psql -U postgres -h localhost -f creat_sql.sql
-    
-    sudo /etc/init.d/postgresql start
-    
-    http://localhost:3000/api/associations?codePostal=03&ville=
-    http://localhost:3000/api/associations?codePostal=03&ville=MONTLUCON
-           
-    CREATE INDEX idx_waldec_asso ON waldec_association (adrs_codepostal);
-    
-    # Créer un composant
+               
+# Créer un composant
     ng g c authentication
     
-    # création de services
+# création de services
     ng g s authentication/authentication --flat
     
 ## Serveur PHP symfony

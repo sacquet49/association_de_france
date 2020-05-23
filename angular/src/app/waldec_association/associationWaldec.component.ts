@@ -1,12 +1,11 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {AdresseService} from '../services/adresse.service';
-import {SelectItem} from "primeng/api";
-import {ActivatedRoute} from "@angular/router";
-import {Subject, of} from "rxjs";
-import {debounceTime, distinctUntilChanged, switchMap, catchError} from "rxjs/internal/operators";
-import {ElasticSearchService} from "../services/elastic-search.service";
-import {AssociationService} from "../services/association.service";
+import {SelectItem} from 'primeng/api';
+import {ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs';
+import {ElasticSearchService} from '../services/elastic-search.service';
+import {AssociationService} from '../services/association.service';
 
 @Component({
     selector: 'ass-association-waldec',
@@ -33,8 +32,8 @@ export class AssociationWaldecComponent implements OnInit {
     subjestAssociation: string[];
     query = {
         multi_match: {
-            query: "",
-            fields: ["objet", "titre^2", "adrs_libcommune^3"]
+            query: '',
+            fields: ['objet', 'titre^2', 'adrs_libcommune^3']
         }
     };
 
@@ -64,7 +63,7 @@ export class AssociationWaldecComponent implements OnInit {
     }
 
     getVille() {
-        if(this.departementSelected) {
+        if (this.departementSelected) {
             this.adresseService.getVilleByRegion(this.departementSelected).subscribe(v => {
                 this.ville = v.sort((a, b) => a.nom.localeCompare(b.nom));
                 this.villesDrop = this.ville.map(vi => ({label: vi.nom, value: vi.nom}));
@@ -79,7 +78,7 @@ export class AssociationWaldecComponent implements OnInit {
 
     getMap() {
         this.associationService.getAssociationWaldec(this.selectedAssociationTab.id).subscribe(rep => {
-            window.scroll(0,0);
+            window.scroll(0, 0);
             this.selectedAssociationTab = rep;
             this.location.go(`association_waldec/${this.selectedAssociationTab.id}`);
 
@@ -95,29 +94,30 @@ export class AssociationWaldecComponent implements OnInit {
 
     getCriteria() {
         let criteria = JSON.parse(JSON.stringify(this.query));
-        if(criteria?.multi_match?.query?.length > 0) {
-            criteria.multi_match.fields = ["objet^2", "titre^4", "libcom^3"];
+        if (criteria?.multi_match?.query?.length > 0) {
+            criteria.multi_match.fields = ['objet^2', 'titre^4', 'libcom^3'];
         }
-        criteria.multi_match.query += ` ${this.searcheParams.ville ? this.searcheParams.ville : (this.departementSelected ? (this.departementSelected + '000')  : '')}`;
+        criteria.multi_match.query += ` ${this.searcheParams.ville ? this.searcheParams.ville 
+            : (this.departementSelected ? (this.departementSelected + '000') : '')}`;
         return criteria;
     }
 
     rechercher() {
         let criteria = this.getCriteria();
-        criteria.multi_match.fields = ["titre^2", "libcom"];
-        this.elkSearchService.getDocumentsWithScrollFirstPage(criteria,"waldec_association").subscribe(r => {
+        criteria.multi_match.fields = ['titre^2', 'libcom'];
+        this.elkSearchService.getDocumentsWithScrollFirstPage(criteria, 'waldec_association').subscribe(r => {
             this.afficheAssociation(this.elkSearchService.getDocumentsContent(r));
         });
     }
 
     searchSubjestAsso() {
-        this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), "waldec_association", 20).subscribe(r => {
-            this.subjestAssociation = this.elkSearchService.getDocumentsContent(r).map(a => a.titre);
+        this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'waldec_association', 20).subscribe(r => {
+            this.subjestAssociation = [...new Set(this.elkSearchService.getDocumentsContent(r).map(a => a.titre))];
         });
     }
 
     afficheAssociation(associations) {
-        if(this.query?.multi_match?.query?.length > 0) {
+        if (this.query?.multi_match?.query?.length > 0) {
             this.associations = associations;
         } else {
             this.associations = associations.sort((a, b) => {
