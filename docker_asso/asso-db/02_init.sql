@@ -352,7 +352,7 @@ COPY public.catergorie (id, titre) FROM stdin;
 --
 
 COPY public.nouvelle (id, date_creation, description, titre) FROM stdin;
-1	2018-04-15	Bienvenue sur l'annuaire des associations de france, le site se divise en deux parties. Les associations créer et non modifier depuis 2009. Une seconde partie pour les associations modifier et créer après 2009. Bonne visite sur le site.	Bienvenu à toi visiteur
+1	2018-04-15	Bienvenue sur l''annuaire des associations de France, le site se divise en deux parties. Les associations créées et non modifier depuis 2009. Une seconde partie pour les associations modifiées et créer après 2009. Bonne visite sur le site.	Bienvenu à toi visiteur
 2	2018-05-03	Mise à jour des données, import mensuel.	Mise à jour
 \.
 
