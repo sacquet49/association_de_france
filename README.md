@@ -30,9 +30,9 @@ Connexion :  admin / Admintcg2018#
 
 # IHM
 
-![Main page](preview/home.png)
+![Main page](preview/admin.png)
 
-![Exemple admin](preview/admin.png)
+![Exemple admin](preview/home.png)
 
 ![Exemple recherche](preview/search.png)
 
