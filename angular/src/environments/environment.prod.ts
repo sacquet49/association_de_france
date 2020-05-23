@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    HOST_ELK: 'localhost:80'
+    HOST_ELK: 'localhost:443'
 };

@@ -2,6 +2,11 @@
 
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
+generateCertificat () {
+	openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout ./nginx/certs/privateKey.key -out ./nginx/certs/certificate.crt \
+	-subj "/C=FR/ST=Nantes/L=Nantes/O=Global Security/OU=IT Department/CN=localhost"
+}
+
 compilation () {
   cd $SCRIPT_DIR/..
   rm -f $SCRIPT_DIR/../angular/package-lock.json
@@ -28,7 +33,7 @@ downloadZipAssociationFile () {
 }
 
 date
-echo $SCRIPT_DIR
+generateCertificat
 date
 compilation
 date
