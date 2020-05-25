@@ -28,9 +28,26 @@ export class AssociationComponent implements OnInit {
     longitude: number;
     subjestAssociation: string[];
     query = {
+        bool: {
+            should: {
+                multi_match: {
+                    query: '',
+                    fields: ['objet', 'titre'],
+                }
+            },
+            must: {
+                multi_match: {
+                    query: '',
+                    fields: ['libcom', 'adrs_codepostal^2']
+                }
+            }
+        }
+    };
+
+    queryWithNoFilter = {
         multi_match: {
             query: '',
-            fields: ['objet', 'titre^2', 'libcom^3']
+            fields: ['adrs_codepostal', 'objet^2', 'titre^3'],
         }
     };
 
@@ -63,7 +80,10 @@ export class AssociationComponent implements OnInit {
         if (this.departementSelected) {
             this.adresseService.getVilleByRegion(this.departementSelected).subscribe(v => {
                 let ville = v.sort((a, b) => a.nom.localeCompare(b.nom));
-                this.villesDrop = ville.map(vi => ({label: vi.nom, value: vi.nom}));
+                this.villesDrop = ville.map(vi => ({
+                    label: vi.nom,
+                    value: `${vi.nom} ${vi.codesPostaux.toString().split(',').join(' ')}`
+                }));
             });
         }
     }
@@ -89,32 +109,31 @@ export class AssociationComponent implements OnInit {
     }
 
     getCriteria() {
-        console.log(this.villeSelected);
-        let criteria = JSON.parse(JSON.stringify(this.query));
-        if (criteria?.multi_match?.query?.length > 0) {
-            criteria.multi_match.fields = ['objet', 'titre^3', 'libcom^2'];
+        if (this.villeSelected) {
+            let criteria = JSON.parse(JSON.stringify(this.query));
+            criteria.bool.must.multi_match.query = this.villeSelected;
+            return criteria;
+        } else {
+            let criteria = JSON.parse(JSON.stringify(this.queryWithNoFilter));
+            criteria.multi_match.query = this.query.bool.should.multi_match.query;
+            return criteria;
         }
-        criteria.multi_match.query += ` ${this.villeSelected ? this.villeSelected :
-            (this.departementSelected ? (this.departementSelected + '000') : '')}`;
-        return criteria;
     }
 
     rechercher() {
-        this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), "associations").subscribe(r => {
+        this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'associations').subscribe(r => {
             this.afficheAssociation(this.elkSearchService.getDocumentsContent(r));
         });
     }
 
     searchSubjestAsso() {
-        let criteria = this.getCriteria();
-        criteria.multi_match.fields = ['titre', 'libcom'];
-        this.elkSearchService.getDocumentsWithScrollFirstPage(criteria, 'associations', 20).subscribe(r => {
+        this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'associations', 20).subscribe(r => {
             this.subjestAssociation = [...new Set(this.elkSearchService.getDocumentsContent(r).map(a => a.titre))];
         });
     }
 
     afficheAssociation(associations) {
-        if (this.query?.multi_match?.query?.length > 0) {
+        if (this.query?.bool?.should?.multi_match?.query?.length > 0) {
             this.associations = associations;
         } else {
             this.associations = associations.sort((a, b) => {
@@ -129,6 +148,6 @@ export class AssociationComponent implements OnInit {
         this.villeSelected = undefined;
         this.associations = [];
         this.dataTableComponent.reset();
-        this.query.multi_match.query = '';
+        this.query.bool.should.multi_match.query = '';
     }
 }

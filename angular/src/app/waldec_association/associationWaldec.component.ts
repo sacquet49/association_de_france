@@ -31,9 +31,26 @@ export class AssociationWaldecComponent implements OnInit {
     longitude: number;
     subjestAssociation: string[];
     query = {
+        bool: {
+            should: {
+                multi_match: {
+                    query: '',
+                    fields: ['objet', 'titre'],
+                }
+            },
+            must: {
+                multi_match: {
+                    query: '',
+                    fields: ['adrs_libcommune', 'adrs_codepostal^2']
+                }
+            }
+        }
+    };
+
+    queryWithNoFilter = {
         multi_match: {
             query: '',
-            fields: ['objet', 'titre^2', 'adrs_libcommune^3']
+            fields: ['adrs_libcommune', 'objet^2', 'titre^3'],
         }
     };
 
@@ -66,7 +83,10 @@ export class AssociationWaldecComponent implements OnInit {
         if (this.departementSelected) {
             this.adresseService.getVilleByRegion(this.departementSelected).subscribe(v => {
                 this.ville = v.sort((a, b) => a.nom.localeCompare(b.nom));
-                this.villesDrop = this.ville.map(vi => ({label: vi.nom, value: vi.nom}));
+                this.villesDrop = this.ville.map(vi => ({
+                    label: vi.nom,
+                    value: `${vi.nom} ${vi.codesPostaux.toString().split(',').join(' ')}`
+                }));
             });
         }
     }
@@ -93,19 +113,19 @@ export class AssociationWaldecComponent implements OnInit {
     }
 
     getCriteria() {
-        let criteria = JSON.parse(JSON.stringify(this.query));
-        if (criteria?.multi_match?.query?.length > 0) {
-            criteria.multi_match.fields = ['objet^2', 'titre^4', 'libcom^3'];
+        if (this.searcheParams.ville) {
+            let criteria = JSON.parse(JSON.stringify(this.query));
+            criteria.bool.must.multi_match.query = this.searcheParams.ville;
+            return criteria;
+        } else {
+            let criteria = JSON.parse(JSON.stringify(this.queryWithNoFilter));
+            criteria.multi_match.query = this.query.bool.should.multi_match.query;
+            return criteria;
         }
-        criteria.multi_match.query += ` ${this.searcheParams.ville ? this.searcheParams.ville 
-            : (this.departementSelected ? (this.departementSelected + '000') : '')}`;
-        return criteria;
     }
 
     rechercher() {
-        let criteria = this.getCriteria();
-        criteria.multi_match.fields = ['titre^2', 'libcom'];
-        this.elkSearchService.getDocumentsWithScrollFirstPage(criteria, 'waldec_association').subscribe(r => {
+        this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'waldec_association').subscribe(r => {
             this.afficheAssociation(this.elkSearchService.getDocumentsContent(r));
         });
     }
@@ -117,7 +137,7 @@ export class AssociationWaldecComponent implements OnInit {
     }
 
     afficheAssociation(associations) {
-        if (this.query?.multi_match?.query?.length > 0) {
+        if (this.query?.bool?.should?.multi_match?.query.length > 0) {
             this.associations = associations;
         } else {
             this.associations = associations.sort((a, b) => {
@@ -132,6 +152,6 @@ export class AssociationWaldecComponent implements OnInit {
         this.searcheParams.ville = undefined;
         this.associations = [];
         this.dataTableComponent.reset();
-        this.query.multi_match.query = '';
+        this.query.bool.should.multi_match.query = '';
     }
 }

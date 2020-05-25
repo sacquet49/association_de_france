@@ -31,7 +31,7 @@
             </p-dropdown>
         </div>
         <div class="ui-g-3">
-            <p-autoComplete [(ngModel)]="query.multi_match.query"
+            <p-autoComplete [(ngModel)]="query.bool.should.multi_match.query"
                             [suggestions]="subjestAssociation"
                             (completeMethod)="searchSubjestAsso()"
                             (onSelect)="rechercher()"
