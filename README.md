@@ -1,4 +1,9 @@
-# Techno : 
+# Description :
+
+Projet qui me permet de faire de la veille technologique, j'utilise en entrer la base de données des associations.
+Le but étant de permettre la recherche des associations française et d'afficher la description d'une l'association. 
+
+# Plateforme : 
 
 Back : Symfony API v4, php 7.
 
@@ -8,13 +13,13 @@ Base de données : PostgresSql 12
 
 Indexer NoSql : ElasticSearch / Kibana 7.6 + Application d'indexation spring boot 2 Java 11. 
 
-# How to install this app
+# Installation de l'application
 
 Cette application nécessite docker et la WSL pour être lancé dans un environnement windows.
 https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
 
 Le fichier docker-compose à la racine du projet permet la compilation de la partie JAVA et Angular du projet.
-Le répertoire docker-asso contient l'environnement d'exécution du projet toujours sous la forme d'une description dockeriser.
+Le répertoire "docker_asso" contient l'environnement d'exécution du projet, sous la forme d'une description dockeriser.
 
 Lancement de l'installation de l'environement :
 
