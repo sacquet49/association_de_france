@@ -28,8 +28,11 @@ deplacementFichierPhp () {
 }
 
 downloadZipAssociationFile () {
-	wget -O $SCRIPT_DIR/import-association/import/rna_import_.zip https://www.data.gouv.fr/fr/datasets/r/e2ec0ffa-dbf0-4c0a-ae3e-a0e76a6dec63
-	wget -O $SCRIPT_DIR/import-association/import/rna_waldec_.zip https://www.data.gouv.fr/fr/datasets/r/8c338cff-561e-4bbe-8973-7636a00282cc
+  wget https://www.data.gouv.fr/fr/datasets/repertoire-national-des-associations/
+  RNA_IMPORT=$(grep "<article id=" index.html | sed 's|<article id="resource-||g' | sed 's|" class="card resource-card "||g' | sed -n '1p')
+  RNA_WALDEC=$(grep "<article id=" index.html | sed 's|<article id="resource-||g' | sed 's|" class="card resource-card "||g' | sed -n '2p')
+	wget -O $SCRIPT_DIR/import-association/import/rna_import_.zip https://www.data.gouv.fr/fr/datasets/r/$RNA_IMPORT
+	wget -O $SCRIPT_DIR/import-association/import/rna_waldec_.zip https://www.data.gouv.fr/fr/datasets/r/$RNA_WALDEC
 }
 
 date
