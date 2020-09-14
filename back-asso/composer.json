@@ -6,11 +6,9 @@
         "ext-iconv": "*",
         "friendsofsymfony/rest-bundle": "^2.7.4",
         "jms/serializer-bundle": "^2.4.4",
-        "jolicode/elastically": "dev-master",
         "lexik/jwt-authentication-bundle": "^2.6.5",
         "nelmio/cors-bundle": "^1.5.6",
         "phpdocumentor/reflection-docblock": "^5.1",
-        "ruflin/elastica": "^6.1",
         "sensio/framework-extra-bundle": "^5.5.5",
         "symfony/console": "^4.4.8",
         "symfony/expression-language": "^4.4.8",
@@ -50,7 +48,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
