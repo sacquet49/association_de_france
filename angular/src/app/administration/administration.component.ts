@@ -1,15 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {AdresseService} from "../services/adresse.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ConfirmationService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {AuthenticationService} from "../authentication/authentication.service";
-import {MessageService} from "primeng";
 import {NouvelleService} from "../services/nouvelle.service";
-import {AssociationService} from "../services/association.service";
 
 @Component({
     selector: 'app-administration',
-    templateUrl: './administration.component.html'
+    templateUrl: './administration.component.html',
 })
 export class AdministrationComponent implements OnInit {
 

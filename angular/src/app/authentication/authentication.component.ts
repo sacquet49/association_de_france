@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "./authentication.service";
 import {Location} from "@angular/common";
 import {HttpErrorResponse} from "@angular/common/http";
-import {MessageService} from "primeng";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-authentication',
