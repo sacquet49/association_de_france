@@ -7,9 +7,9 @@
           [(visible)]="display" [minY]="70" appendTo="body"
           [style]="{width: '350px', minWidth: '200px'}">
   <p style="color: red">{{authError}}</p>
-  <div class="ui-g-12">
+  <div class="p-col-12">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="ui-g-12">
+      <div class="p-col-12">
         <div class="form-group">
           <input type="text"
                  pInputText
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="ui-g-12">
+      <div class="p-col-12">
         <div class="form-group">
           <input pPassword
                  type="password"
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div class="ui-g-12">
+      <div class="p-col-12">
         <button class="ui-g" pButton type="submit" label="Connection" [disabled]="!loginForm.valid"></button>
       </div>
 

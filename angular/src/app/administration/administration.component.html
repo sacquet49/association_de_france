@@ -2,13 +2,13 @@
   <p-tabView>
 
     <p-tabPanel header="Nouvelles">
-      <div class="ui-g">
-        <div class="ui-g-10 ui-g-offset-1" *ngIf="!createNews">
-          <div class="ui-g-12">
+      <div class="p-grid">
+        <div class="p-col-10 p-offset-1" *ngIf="!createNews">
+          <div class="p-col-12">
             <button pButton type="button" label="Créer une nouvelle" (click)="createNews = true" ></button>
           </div>
 
-          <div class="ui-g-12">
+          <div class="p-col-12">
             <p-table [value]="listNouvelle">
               <ng-template pTemplate="header">
                 <tr>
@@ -31,7 +31,7 @@
 
         </div>
 
-        <div class="ui-g-10 ui-g-offset-1" *ngIf="createNews">
+        <div class="p-col-10 p-offset-1" *ngIf="createNews">
 
           <h2>Création d'une nouvelle</h2>
 
@@ -87,13 +87,13 @@
 
     <p-tabPanel header="Utilisateurs">
       <div class="ui-g">
-        <div class="ui-g-10 ui-g-offset-1" *ngIf="!createUtilisateur">
+        <div class="p-col-10 p-offset-1" *ngIf="!createUtilisateur">
 
-          <div class="ui-g-12">
+          <div class="p-col-12">
             <button pButton type="button" label="Créer un utilisateur" (click)="createUtilisateur = true" ></button>
           </div>
 
-          <div class="ui-g-12">
+          <div class="p-col-12">
             <p-table [value]="listUtilisateurs">
               <ng-template pTemplate="header">
                 <tr>
@@ -116,7 +116,7 @@
 
         </div>
 
-        <div class="ui-g-10 ui-g-offset-1" *ngIf="createUtilisateur">
+        <div class="p-col-10 p-offset-1" *ngIf="createUtilisateur">
 
           <h2>Création d'un nouvelle utilisateur</h2>
 
