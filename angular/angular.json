@@ -23,6 +23,7 @@
             ],
             "styles": [
               "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.scss",
               "node_modules/@fullcalendar/core/main.min.css",

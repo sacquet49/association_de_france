@@ -12,9 +12,9 @@ export class AppComponent implements OnInit {
 
     tabMenuItems: MenuItem[];
     tabMenuItemsBase = [
-        {label: '', icon: 'ui-icon-home', routerLink: ['home']},
-        {label: 'Associations avant 2009', icon: 'ui-icon-library-books', routerLink: ['association']},
-        {label: 'Associations après 2009', icon: 'ui-icon-library-books', routerLink: ['association_waldec']},
+        {label: '', icon: 'pi pi-home', routerLink: ['home']},
+        {label: 'Associations avant 2009', icon: 'pi pi-list', routerLink: ['association']},
+        {label: 'Associations après 2009', icon: 'pi pi-list', routerLink: ['association_waldec']},
     ];
 
     constructor(private authService: AuthenticationService) {}
@@ -28,9 +28,9 @@ export class AppComponent implements OnInit {
         this.tabMenuItems = this.tabMenuItemsBase.slice();
 
         if(tokenRole && tokenRole.roles.includes('ROLE_SUPER_ADMIN')) {
-            this.tabMenuItems.push({label: 'Administration', icon: 'ui-icon-settings', routerLink: ['administration']});
+            this.tabMenuItems.push({label: 'Administration', icon: 'pi pi-cog', routerLink: ['administration']});
         } else if(tokenRole && tokenRole.roles.includes('ROLE_USER_CLASSIC')) {
-            this.tabMenuItems.push({label: 'Statistique', icon: 'ui-icon-pie-chart-outlined', routerLink: ['statistique']});
+            this.tabMenuItems.push({label: 'Statistique', icon: 'pi pi-chart-bar', routerLink: ['statistique']});
         }
     }
 }

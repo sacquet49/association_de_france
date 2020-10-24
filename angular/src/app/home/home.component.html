@@ -5,7 +5,7 @@
         <div class="p-col-4" *ngFor="let nouvelle of nouvelles">
             <div class="card card-w-title h-100">
                 <p-panel styleClass="h-100" [header]="nouvelle.titre" [toggleable]="false">
-                    {{nouvelle.description}}
+                    <div class="pt-2">{{nouvelle.description}}</div>
                 </p-panel>
             </div>
         </div>

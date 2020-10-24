@@ -1,6 +1,6 @@
 <div class="ui-rtl" dir="rtl">
   <button *ngIf="!isConnected()" pButton type="button" label="Connection" (click)="showDialog()" ></button>
-  <button *ngIf="isConnected()" pButton type="button" label="Deconnection" class="ui-button-secondary" (click)="deconnection()"></button>
+  <button *ngIf="isConnected()" pButton type="button" label="Deconnection" class="p-button-secondary" (click)="deconnection()"></button>
 </div>
 
 <p-dialog modal="modal" responsive="true" header="Connection" showEffect="fade"

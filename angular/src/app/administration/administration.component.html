@@ -24,7 +24,7 @@
                                     <td>{{news.description}}</td>
                                     <td>{{news.date_creation | date:'longDate'}}</td>
                                     <td>
-                                        <button pButton type="button" icon="ui-icon-delete-forever"
+                                        <button pButton type="button" icon="pi pi-trash"
                                                 (click)="supprimerNouvelle(news)"></button>
                                     </td>
                                 </tr>
@@ -74,7 +74,7 @@
                             <div class="p-grid">
                                 <div class="p-col-2"></div>
                                 <div class="p-col-3">
-                                    <button pButton type="button" class="ui-secondary-button w-100" label="Retour"
+                                    <button pButton type="button" class="p-button-secondary w-100" label="Retour"
                                             (click)="newsForm.reset(); createNews = undefined;"></button>
                                 </div>
                                 <div class="p-col-3">
@@ -115,7 +115,7 @@
                                     <td>{{user.roles}}</td>
                                     <td>{{user.is_active ? 'Oui' : 'Non'}}</td>
                                     <td>
-                                        <button pButton type="button" icon="ui-icon-delete-forever"
+                                        <button pButton type="button" icon="pi pi-trash"
                                                 (click)="supprimerUtilisateur(user)"></button>
                                     </td>
                                 </tr>
@@ -180,7 +180,7 @@
                             <div class="p-grid">
                                 <div class="p-col-2"></div>
                                 <div class="p-col-3">
-                                    <button pButton type="button" class="ui-secondary-button w-100" label="Retour"
+                                    <button pButton type="button" class="p-button-secondary w-100" label="Retour"
                                             (click)="newsUtilisateur.reset(); createUtilisateur = undefined;"></button>
                                 </div>
                                 <div class="p-col-3">
