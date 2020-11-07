@@ -1,8 +1,0 @@
-{
-  "elastic_host": "localhost:9200",
-  "DB_HOST": "localhost",
-  "DB_PORT": "5432",
-  "DB_USER": "u_asso",
-  "DB_PASSWORD": "u_asso",
-  "DB_DATABASE": "associations"
-}
