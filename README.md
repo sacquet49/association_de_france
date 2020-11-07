@@ -9,9 +9,9 @@ Back : Symfony API v5, php 7.4.
 
 Front : PrimeNg, Angular 10, cartographie leaflet
 
-Base de données : PostgresSql 12
+Base de données : PostgresSql 13
 
-Indexer NoSql : ElasticSearch / Kibana 7.6 + Application d'indexation spring boot 2 Java 11. 
+Indexer NoSql : ElasticSearch / Kibana 7.9 + Application d'indexation spring boot 2.3 Java 14. 
 
 # Installation de l'application
 
