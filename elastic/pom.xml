@@ -15,7 +15,7 @@
     <description>Indexer des association</description>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>16</java.version>
     </properties>
 
     <dependencies>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>7.9.3</version>
+            <version>7.12.1</version>
         </dependency>
 
         <dependency>
@@ -59,12 +59,12 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>7.9.3</version>
+            <version>7.12.1</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-client</artifactId>
-            <version>7.9.3</version>
+            <version>7.12.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>

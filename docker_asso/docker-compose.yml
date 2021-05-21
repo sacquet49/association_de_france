@@ -14,7 +14,7 @@ services:
     
     nginx:
         container_name: asso-app
-        image: nginx:1.15.3-alpine
+        image: nginx:1.20.0-alpine
         restart: on-failure
         volumes:
             - ./nginx/front/public:/usr/src/app
@@ -37,7 +37,7 @@ services:
             - asso-db
             
     es:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
         container_name: es
         environment:
           - discovery.type=single-node
@@ -51,7 +51,7 @@ services:
           - ./esdata:/usr/share/elasticsearch/data
 
     kibana:
-        image: docker.elastic.co/kibana/kibana:7.9.3
+        image: docker.elastic.co/kibana/kibana:7.12.1
         ports:
               - "5601:5601"
         environment:

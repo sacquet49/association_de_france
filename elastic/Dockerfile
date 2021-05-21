@@ -1,4 +1,4 @@
-FROM maven:3-jdk-14
+FROM maven:3-jdk-16
 
 WORKDIR /usr/src
 

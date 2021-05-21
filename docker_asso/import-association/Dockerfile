@@ -1,4 +1,4 @@
-FROM debian:10.4
+FROM debian:10.9
 
 COPY *.sh /root
 
