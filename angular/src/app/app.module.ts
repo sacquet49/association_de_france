@@ -78,7 +78,7 @@ export function tokenGetter() {
         AdresseSearchComponent
     ],
     imports: [
-        RouterModule.forRoot(appRoutes, {enableTracing: false}),
+        RouterModule.forRoot(appRoutes, { enableTracing: false, relativeLinkResolution: 'legacy' }),
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
