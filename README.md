@@ -5,9 +5,9 @@ Le but étant de permettre la recherche des associations française et d'affiche
 
 # Plateforme : 
 
-Back : Symfony API v5, php 7.4.
+Back : Symfony API v5, php 8.1
 
-Front : PrimeNg, Angular 10, cartographie leaflet
+Front : PrimeNg, Angular 12, cartographie leaflet
 
 Base de données : PostgresSql 13
 
