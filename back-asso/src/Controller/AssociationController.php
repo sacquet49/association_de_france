@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
 use App\Repository\AssociationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -24,7 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class AssociationController extends AbstractController
 {
     /**
-     * @FOSRest\Get("/associations")
+     * @Route("/associations", methods={"GET"})
      *
      * @return array
      */
@@ -39,7 +38,7 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @FOSRest\Get("/associations_waldec")
+     * @Route("/associations_waldec", methods={"GET"})
      *
      * @return array
      */
@@ -54,7 +53,7 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @FOSRest\Get("/association/{id}")
+     * @Route("/association/{id}", methods={"GET"})
      *
      * @return array
      */
@@ -66,7 +65,7 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @FOSRest\Get("/association_waldec/{id}")
+     * @Route("/association_waldec/{id}", methods={"GET"})
      *
      * @return array
      */
@@ -78,7 +77,7 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @FOSRest\Get("/auth/association_waldecs/stat")
+     * @Route("/auth/association_waldecs/stat", methods={"GET"})
      * @Security("is_granted('ROLE_USER_CLASSIC')")*
      */
     public function getStatAssociationWaldecAction()

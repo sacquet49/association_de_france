@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
 use App\Entity\Nouvelle;
 use \Datetime;
 
@@ -23,7 +22,7 @@ use \Datetime;
 class NouvelleController extends AbstractController
 {
     /**
-     * @FOSRest\Get("/nouvelles")
+     * @Route("/nouvelles", methods={"GET"})
      *
      */
     public function getNouvelles(Request $request)
@@ -35,7 +34,7 @@ class NouvelleController extends AbstractController
 
     /**
      * @Security("is_granted('ROLE_SUPER_ADMIN')")
-     * @FOSRest\Post("/auth/admin/nouvelle")
+     * @Route("/auth/admin/nouvelle", methods={"POST"})
      *
      */
     public function saveNouvelles(Request $request)
@@ -54,7 +53,7 @@ class NouvelleController extends AbstractController
 
     /**
      * @Security("is_granted('ROLE_SUPER_ADMIN')")
-     * @FOSRest\Delete("/auth/admin/nouvelle/{id}")
+     * @Route("/auth/admin/nouvelle/{id}", methods={"DELETE"})
      *
      */
     public function removeNouvelles(Request $request)

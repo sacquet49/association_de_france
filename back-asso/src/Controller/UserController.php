@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use FOS\RestBundle\View\View;
@@ -26,7 +25,7 @@ class UserController extends AbstractController
 {
     /**
      * @Security("is_granted('ROLE_SUPER_ADMIN')")
-     * @FOSRest\Post("/auth/admin/users")
+     * @Route("/auth/admin/users", methods={"POST"})
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder)
     {
@@ -47,7 +46,7 @@ class UserController extends AbstractController
 
     /**
      * @Security("is_granted('ROLE_SUPER_ADMIN')")
-     * @FOSRest\Get("/auth/admin/users")
+     * @Route("/auth/admin/users", methods={"GET"})
      */
     public function listUser(Request $request)
     {
@@ -63,7 +62,7 @@ class UserController extends AbstractController
 
     /**
      * @Security("is_granted('ROLE_SUPER_ADMIN')")
-     * @FOSRest\Delete("/auth/admin/users/{id}")
+     * @Route("/auth/admin/users/{id}", methods={"DELETE"})
      *
      */
     public function removeUser(Request $request)

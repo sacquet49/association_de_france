@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
 use App\Entity\Catergorie;
 
 /**
@@ -19,7 +18,7 @@ use App\Entity\Catergorie;
 class CategorieController extends AbstractController
 {
     /**
-     * @FOSRest\Get("/categories")
+     * @Route("/categories", methods={"GET"})
      *
      * @return array
      */
