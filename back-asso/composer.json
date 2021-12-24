@@ -11,21 +11,21 @@
         "doctrine/orm": "^2.10.4",
         "friendsofsymfony/rest-bundle": "^3.0.5",
         "jms/serializer-bundle": "^3.9.1",
-        "lexik/jwt-authentication-bundle": "^v2.11.3",
+        "lexik/jwt-authentication-bundle": "^v2.14.3",
         "nelmio/cors-bundle": "^2.1.1",
         "phpdocumentor/reflection-docblock": "^5.2.2",
         "sensio/framework-extra-bundle": "^v5.6.1",
-        "symfony/console": "^v5.4.1",
-        "symfony/expression-language": "^v5.4.0",
+        "symfony/console": "^v5.2.14",
+        "symfony/expression-language": "^v5.2.12",
         "symfony/flex": "^v1.17.6",
-        "symfony/framework-bundle": "^v5.4.1",
+        "symfony/framework-bundle": "^v5.2.12",
         "symfony/maker-bundle": "^v1.36.4",
-        "symfony/process": "v5.4.0",
-        "symfony/security-bundle": "^v5.4.1",
-        "symfony/yaml": "^v5.4.0"
+        "symfony/process": "v5.2.12",
+        "symfony/security-bundle": "^v5.2.12",
+        "symfony/yaml": "^v5.2.14"
     },
     "require-dev": {
-        "symfony/dotenv": "^v5.4.0"
+        "symfony/dotenv": "^v5.2.14"
     },
     "config": {
         "preferred-install": {
