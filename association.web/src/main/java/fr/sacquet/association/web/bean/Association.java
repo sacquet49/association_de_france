@@ -9,7 +9,10 @@ import java.sql.Date;
 @Table(name = "association")
 @Data
 public class Association {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "association_id_seq",
+            sequenceName = "association_id_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="association_id_seq")
     @Id
     @Column(name = "id")
     private String id;

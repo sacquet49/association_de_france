@@ -11,7 +11,10 @@ import java.sql.Timestamp;
 @Data
 public class WaldecAssociation {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "waldec_association_id_seq",
+            sequenceName = "waldec_association_id_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="waldec_association_id_seq")
     @Id
     @Column(name = "id")
     private String id;

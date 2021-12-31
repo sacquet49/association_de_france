@@ -9,7 +9,10 @@ import javax.persistence.*;
 @Data
 public class Statistique {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "seq_statistique",
+            sequenceName = "seq_statistique",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="seq_statistique")
     @Id
     @Column(name = "id")
     private long id;
