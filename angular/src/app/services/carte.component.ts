@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, SimpleChange, SimpleChanges} from "@angular/core";
+import {AfterViewInit, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({

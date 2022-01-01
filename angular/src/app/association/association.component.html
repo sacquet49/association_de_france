@@ -99,7 +99,7 @@
                 </div>
                 <div class="p-grid p-col-6">
                     <div class="p-col-4 ass-label-blue">Code postal :</div>
-                    <div class="p-col-8">{{selectedAssociationTab.adrs_codepostal}}</div>
+                    <div class="p-col-8">{{selectedAssociationTab.adrsCodepostal}}</div>
                 </div>
 
             </div>
@@ -107,11 +107,11 @@
             <div class="p-grid">
                 <div class="p-grid p-col-6">
                     <div class="p-col-4 ass-label-blue">Adresse :</div>
-                    <div class="p-col-8">{{selectedAssociationTab.adr1 }}</div>
+                    <div class="p-col-8">{{selectedAssociationTab.adr1}} {{selectedAssociationTab.adr2}}</div>
                 </div>
                 <div class="p-grid p-col-6">
                     <div class="p-col-4 ass-label-blue">Date de publication :</div>
-                    <div class="p-col-8">{{selectedAssociationTab.date_publi | date:'longDate'}}</div>
+                    <div class="p-col-8">{{selectedAssociationTab.datePubli | date:'longDate'}}</div>
                 </div>
             </div>
 
@@ -133,7 +133,7 @@
                 </div>
                 <div class="p-grid p-col-6">
                     <div class="p-col-4 ass-label-blue">Date de mise à jour :</div>
-                    <div class="p-col-8">{{selectedAssociationTab.maj_time | date:'longDate' }}</div>
+                    <div class="p-col-8">{{selectedAssociationTab.majTime | date:'longDate' }}</div>
                 </div>
             </div>
         </p-fieldset>

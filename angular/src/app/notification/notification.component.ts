@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from "primeng/api";
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'ass-notification',
