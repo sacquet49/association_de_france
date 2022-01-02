@@ -25,6 +25,7 @@ downloadZipAssociationFile () {
   RNA_WALDEC=$(grep "<article id=" index.html | sed 's|<article id="resource-||g' | sed 's|" class="card resource-card "||g' | sed -n '2p')
   wget -O $SCRIPT_DIR/import-association/import/rna_import_.zip https://www.data.gouv.fr/fr/datasets/r/$RNA_IMPORT
   wget -O $SCRIPT_DIR/import-association/import/rna_waldec_.zip https://www.data.gouv.fr/fr/datasets/r/$RNA_WALDEC
+  rm -f index.html
 }
 
 date
