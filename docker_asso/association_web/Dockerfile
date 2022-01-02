@@ -1,5 +1,5 @@
-FROM debian:11.2
+FROM openjdk:17.0-jdk
 
-COPY *.sh /root
-
-CMD bash -xe /root/run_assosiation_web.sh
+COPY jar/application.properties application.properties
+COPY jar/association_web.jar association_web.jar
+ENTRYPOINT ["java","-jar","/association_web.jar", "--spring.config.location=application.properties"]

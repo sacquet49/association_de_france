@@ -8,17 +8,14 @@ installEnv() {
 }
 
 runApp () {
-  cd $SCRIPT_DIR
-  java -jar association_web.jar --spring.config.location=application.properties
+  cd $SCRIPT_DIR/jar
+  #java -jar association_web.jar --spring.config.location=application.properties
 }
 
 date
 installEnv
 date
 while ! nc -z asso-db 5432; do
-	sleep 60
-done
-while ! nc -z es 9200; do
 	sleep 60
 done
 date

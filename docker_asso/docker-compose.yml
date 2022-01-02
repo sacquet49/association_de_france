@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-    asso-db:        
+    asso-db:
         container_name: asso-db
         build: asso-db
         ports:
@@ -11,7 +11,39 @@ services:
             - POSTGRES_DB=associations
             - POSTGRES_USER=u_asso_admin
             - POSTGRES_PASSWORD=u_asso_admin
-    
+
+    back-java:
+        container_name: asso-web
+        build: association_web
+        restart: on-failure
+        volumes:
+            - ./association_web/jar:/root/jar
+        depends_on:
+            - asso-db
+
+    es:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+        container_name: es
+        environment:
+            - discovery.type=single-node
+            - cluster.name=es-docker-cluster
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
+        ports:
+            - 9200:9200
+            - 9300:9300
+        volumes:
+            - ./esdata:/usr/share/elasticsearch/data
+
+    #kibana:
+    #    image: docker.elastic.co/kibana/kibana:7.16.2
+    #    ports:
+    #          - "5601:5601"
+    #    environment:
+    #      ELASTICSEARCH_HOSTS: http://es:9200
+    #    depends_on:
+    #        - es
+
     nginx:
         container_name: asso-app
         image: nginx:1.20.0-alpine
@@ -24,38 +56,9 @@ services:
             - "80:80"
             - "443:443"
         depends_on:
-            - php
+            - back-java
             - asso-db
-
-    back-java:
-        container_name: asso-web
-        build: association_web
-        restart: on-failure
-        depends_on:
-            - asso-db
-            
-    es:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
-        container_name: es
-        environment:
-          - discovery.type=single-node
-          - cluster.name=es-docker-cluster
-          - bootstrap.memory_lock=true
-          - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
-        ports:
-          - 9200:9200
-          - 9300:9300
-        volumes:
-          - ./esdata:/usr/share/elasticsearch/data
-
-    #kibana:
-    #    image: docker.elastic.co/kibana/kibana:7.16.2
-    #    ports:
-    #          - "5601:5601"
-    #    environment:
-    #      ELASTICSEARCH_HOSTS: http://es:9200
-    #    depends_on:
-    #        - es
+            - es
 
     import:
         container_name: import-association
