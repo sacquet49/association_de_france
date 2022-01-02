@@ -21,8 +21,8 @@ compilation () {
 
 downloadZipAssociationFile () {
   wget -O index.html https://www.data.gouv.fr/fr/datasets/repertoire-national-des-associations/
-  RNA_IMPORT=$(grep '<header class="card-header" id=' index.html | sed 's|<header class="card-header" id="resource-||g' | sed 's|-header">||g' | sed -n '1p')
-  RNA_WALDEC=$(grep '<header class="card-header" id=' index.html | sed 's|<header class="card-header" id="resource-||g' | sed 's|-header">||g' | sed -n '2p')
+  RNA_IMPORT=$(grep '<header class="card-header" id=' index.html | sed 's|<header class="card-header" id="resource-||g' | sed 's|-header">||g' | sed 's| ||g' | sed -n '1p')
+  RNA_WALDEC=$(grep '<header class="card-header" id=' index.html | sed 's|<header class="card-header" id="resource-||g' | sed 's|-header">||g' | sed 's| ||g' | sed -n '2p')
   wget -O $SCRIPT_DIR/import-association/import/rna_import_.zip https://www.data.gouv.fr/fr/datasets/r/$RNA_IMPORT
   wget -O $SCRIPT_DIR/import-association/import/rna_waldec_.zip https://www.data.gouv.fr/fr/datasets/r/$RNA_WALDEC
   rm -f index.html
