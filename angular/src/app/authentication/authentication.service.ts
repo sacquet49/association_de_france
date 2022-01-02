@@ -1,38 +1,31 @@
-import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
 
-    constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
-
-    authenticate(user: any): Observable<any> {
-        const httpParams: HttpParams = new HttpParams()
-            .set('username', user.username)
-            .set('password', user.password);
-        const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-        return this.http.post(`api/login_check`, httpParams.toString(),{headers: headers});
+    constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {
     }
 
-    addUser(user : any): Observable<any> {
-        const httpParams: HttpParams = new HttpParams()
-            .set('username', user.username)
-            .set('password', user.password);
-        const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-            .set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.post(`api/auth/admin/users`, httpParams.toString(), { headers });
+    authenticate(user: any): Observable<any> {
+        return this.http.post(`open/api/authenticate`, user);
+    }
+
+    addUser(user: any): Observable<any> {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
+        return this.http.post(`private/api/user`, user, {headers});
     }
 
     getUtilisateurs(): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.get(`api/auth/admin/users`, { headers });
+        return this.http.get(`private/api/users`, {headers});
     }
 
     removeUtilisateurs(id: any): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.delete(`api/auth/admin/users/${id}`, { headers });
+        return this.http.delete(`private/api/user/${id}`, {headers});
     }
 
     logout() {
@@ -40,7 +33,7 @@ export class AuthenticationService {
     }
 
     loggedIn() {
-        if(localStorage.getItem('id_token')){
+        if (localStorage.getItem('id_token')) {
             return !this.jwtHelper.isTokenExpired(localStorage.getItem('id_token'));
         } else {
             this.logout();
@@ -48,8 +41,8 @@ export class AuthenticationService {
         }
     }
 
-    decode(){
-        if(this.loggedIn() && localStorage.getItem('id_token')){
+    decode() {
+        if (this.loggedIn() && localStorage.getItem('id_token')) {
             return this.jwtHelper.decodeToken(localStorage.getItem('id_token'));
         }
         return '';

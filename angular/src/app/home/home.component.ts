@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {AdresseService} from "../services/adresse.service";
-import {NouvelleService} from "../services/nouvelle.service";
+import {Component, OnInit} from '@angular/core';
+import {AdresseService} from '../services/adresse.service';
+import {NouvelleService} from '../services/nouvelle.service';
 
 @Component({
     selector: 'ass-home',

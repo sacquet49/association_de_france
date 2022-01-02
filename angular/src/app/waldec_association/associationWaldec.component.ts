@@ -99,7 +99,7 @@ export class AssociationWaldecComponent implements OnInit {
     getMap() {
         this.associationService.getAssociationWaldec(this.selectedAssociationTab.id).subscribe(rep => {
             window.scroll(0, 0);
-            this.selectedAssociationTab = rep;
+            this.selectedAssociationTab = rep ? rep : this.selectedAssociationTab;
             this.location.go(`association_waldec/${this.selectedAssociationTab.id}`);
 
             const adresse = `${this.selectedAssociationTab.adrs_numvoie} ${this.selectedAssociationTab.adrs_typevoie} ${this.selectedAssociationTab.adrs_libvoie}`;

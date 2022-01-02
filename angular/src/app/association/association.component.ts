@@ -96,7 +96,7 @@ export class AssociationComponent implements OnInit {
     getMap() {
         this.associationComponent.getAssociation(this.selectedAssociationTab.id).subscribe(rep => {
             window.scroll(0, 0);
-            this.selectedAssociationTab = rep;
+            this.selectedAssociationTab = rep ? rep : this.selectedAssociationTab;
             this.location.go(`association/${this.selectedAssociationTab.id}`);
             this.adresseService.getGeocodingGouv(this.selectedAssociationTab.adr1 + ', ' +
                 this.selectedAssociationTab.libcom).subscribe((a: any) => {

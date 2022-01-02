@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable,} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class AssociationService {
@@ -9,19 +9,19 @@ export class AssociationService {
     }
 
     getCategories(): Observable<any> {
-        return this.http.get(`api/categories`);
+        return this.http.get(`open/api/categories`);
     }
 
     getAssociation(id: string): Observable<any> {
-        return this.http.get(`api/association/${id}`);
+        return this.http.get(`open/api/association/${id}`);
     }
 
     getAssociationWaldec(id: string): Observable<any> {
-        return this.http.get(`api/association_waldec/${id}`);
+        return this.http.get(`open/api/association_waldec/${id}`);
     }
 
     getStatWaldecAssociation(): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.get(`api/auth/association_waldecs/stat`, {headers});
+        return this.http.get(`private/api/association/statistique`, {headers});
     }
 }

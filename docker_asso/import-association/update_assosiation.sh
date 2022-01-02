@@ -17,7 +17,7 @@ fi
 
 installEnv() {
   apt-get update -y
-  apt-get install -y libpq-dev default-jre unzip netcat
+  apt-get install -y libpq-dev openjdk-17-jre unzip netcat
 }
 
 performIntegrationAssociation () {

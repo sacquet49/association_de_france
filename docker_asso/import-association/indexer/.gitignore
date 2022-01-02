@@ -1,4 +1,5 @@
 *.json
 *.py
 *.sh
+*.jar
 mapping

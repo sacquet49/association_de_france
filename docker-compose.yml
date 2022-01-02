@@ -5,7 +5,13 @@ services:
         build: angular
         volumes:
             - ./angular:/usr/app
-    
+
+    association-web:
+      container_name: association-web
+      build: association_web
+      volumes:
+        - ./association_web:/usr/src
+
     indexer-elk:
         container_name: indexer-elk
         build: elastic
