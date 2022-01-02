@@ -100,6 +100,21 @@ CREATE SEQUENCE public.association_id_seq
 
 ALTER TABLE public.association_id_seq OWNER TO u_asso_admin;
 
+
+--
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: u_asso_admin
+--
+
+CREATE SEQUENCE public.user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO u_asso_admin;
+
 --
 -- Name: catergorie; Type: TABLE; Schema: public; Owner: u_asso_admin
 --
@@ -763,6 +778,12 @@ COPY public.waldec_association (id, id_ex, siret, rup_mi, gestion, date_creat, d
 
 SELECT pg_catalog.setval('public.association_id_seq', 1, false);
 
+--
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: u_asso_admin
+--
+
+SELECT pg_catalog.setval('public.user_id_seq', 3, false);
+
 
 --
 -- Name: catergorie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: u_asso_admin
@@ -1007,6 +1028,12 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.association TO u_asso;
 --
 
 GRANT ALL ON SEQUENCE public.association_id_seq TO u_asso;
+
+--
+-- Name: SEQUENCE user_id_seq; Type: ACL; Schema: public; Owner: u_asso_admin
+--
+
+GRANT ALL ON SEQUENCE public.user_id_seq TO u_asso;
 
 
 --

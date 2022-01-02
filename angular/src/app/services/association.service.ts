@@ -22,6 +22,6 @@ export class AssociationService {
 
     getStatWaldecAssociation(): Observable<any> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.get(`private/api/association_waldecs/stat`, {headers});
+        return this.http.get(`private/api/association/statistique`, {headers});
     }
 }

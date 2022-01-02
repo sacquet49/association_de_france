@@ -113,7 +113,7 @@
                                 <tr>
                                     <td>{{user.username}}</td>
                                     <td>{{user.roles}}</td>
-                                    <td>{{user.is_active ? 'Oui' : 'Non'}}</td>
+                                    <td>{{user.active ? 'Oui' : 'Non'}}</td>
                                     <td>
                                         <button pButton type="button" icon="pi pi-trash"
                                                 (click)="supprimerUtilisateur(user)"></button>

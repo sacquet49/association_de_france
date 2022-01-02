@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static fr.sacquet.association.web.conf.Constante.PUBLIC_API;
+
 @RestController
-@RequestMapping("/open/api/association_waldec")
+@RequestMapping(PUBLIC_API + "/association_waldec")
 @AllArgsConstructor
 public class WaldecAssociationController {
 

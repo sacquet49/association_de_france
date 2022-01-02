@@ -14,12 +14,8 @@ export class AuthenticationService {
     }
 
     addUser(user: any): Observable<any> {
-        const httpParams: HttpParams = new HttpParams()
-            .set('username', user.username)
-            .set('password', user.password);
-        const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-            .set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.post(`private/api/user`, httpParams.toString(), {headers});
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
+        return this.http.post(`private/api/user`, user, {headers});
     }
 
     getUtilisateurs(): Observable<any> {

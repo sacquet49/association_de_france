@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Service
 @AllArgsConstructor
@@ -26,5 +25,9 @@ public class NouvelleService {
         nouvelleDto.setDescription(nouvelle.getDescription());
         nouvelleDto.setDateCreation(date);
         return repository.save(nouvelleDto);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 }
