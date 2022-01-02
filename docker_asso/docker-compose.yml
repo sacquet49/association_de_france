@@ -26,13 +26,11 @@ services:
         depends_on:
             - php
             - asso-db
-     
-    php:
-        container_name: asso-php
-        build: php
+
+    back-java:
+        container_name: asso-web
+        build: association_web
         restart: on-failure
-        env_file:
-            - ./php/back-asso/.env
         depends_on:
             - asso-db
             

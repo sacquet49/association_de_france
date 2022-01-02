@@ -14,17 +14,7 @@ compilation () {
   mkdir -p $SCRIPT_DIR/nginx/front/public
   cp -rf $SCRIPT_DIR/../angular/dist/* $SCRIPT_DIR/nginx/front/public
   cp -f $SCRIPT_DIR/../elastic/target/elastic-*.jar $SCRIPT_DIR/import-association/indexer/elastic_indexer.jar
-}
-
-deplacementFichierPhp () {
-  cp -rf $SCRIPT_DIR/../back-asso/bin $SCRIPT_DIR/php/back-asso
-  cp -rf $SCRIPT_DIR/../back-asso/config $SCRIPT_DIR/php/back-asso
-  cp -rf $SCRIPT_DIR/../back-asso/public $SCRIPT_DIR/php/back-asso
-  cp -rf $SCRIPT_DIR/../back-asso/src $SCRIPT_DIR/php/back-asso
-  cp -f $SCRIPT_DIR/../back-asso/composer.json $SCRIPT_DIR/php/back-asso
-  cp -f $SCRIPT_DIR/../back-asso/composer.lock $SCRIPT_DIR/php/back-asso
-  cp -f $SCRIPT_DIR/../back-asso/symfony.lock $SCRIPT_DIR/php/back-asso
-  cp -f $SCRIPT_DIR/php/.env $SCRIPT_DIR/php/back-asso
+  cp -f $SCRIPT_DIR/../association_web/target/association*.jar $SCRIPT_DIR/association_web/association_web.jar
 }
 
 downloadZipAssociationFile () {
@@ -39,8 +29,6 @@ date
 generateCertificat
 date
 compilation
-date
-deplacementFichierPhp
 date
 downloadZipAssociationFile
 date
