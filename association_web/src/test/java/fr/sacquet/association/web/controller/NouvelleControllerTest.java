@@ -1,16 +1,12 @@
 package fr.sacquet.association.web.controller;
 
 import fr.sacquet.association.web.bean.Nouvelle;
-import fr.sacquet.association.web.model.JwtRequest;
 import fr.sacquet.association.web.model.NouvelleRequest;
 import fr.sacquet.association.web.services.NouvelleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.shaded.com.google.common.net.HttpHeaders;
 import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
@@ -35,19 +31,6 @@ class NouvelleControllerTest extends AbstractControllerTest {
     private NouvelleService service;
 
     private static final String BASE_PATH = "src/test/resources/controller/nouvelle/";
-
-    @Test
-    void getAuth() throws Exception {
-        JwtRequest jr = new JwtRequest();
-        jr.setUsername("test");
-        jr.setPassword("test");
-
-        this.mvc.perform(post(PUBLIC_API + "/authenticate")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(jr)))
-                .andExpect(status().isOk())
-                .andExpect(content().string("data.trim()"));
-    }
 
     @Test
     void getNouvelles() throws Exception {
@@ -105,7 +88,7 @@ class NouvelleControllerTest extends AbstractControllerTest {
 
         // When and Then
         this.mvc.perform(post(PRIVATE_API + "/nouvelles")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + authToken)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(data.trim()));
@@ -122,7 +105,7 @@ class NouvelleControllerTest extends AbstractControllerTest {
     void deleteNouvelle_useCase() throws Exception {
         // When and Then
         this.mvc.perform(delete(PRIVATE_API + "/nouvelle/1")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token"))
-                        .andExpect(status().isUnauthorized());
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + authToken))
+                .andExpect(status().isUnauthorized());
     }
 }

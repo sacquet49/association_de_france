@@ -31,14 +31,6 @@ public class AbstractControllerTest {
         ur.setUsername("test");
         ur.setPassword("test");
         userService.save(ur);
-        // jwtTokenUtil.getIssuedAtDateFromToken();
-    }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        authToken = jwtTokenUtil.updateExpirationDateToken(authToken);
     }
 }
