@@ -24,24 +24,36 @@ class NouvelleServiceTest {
 
     @Test
     void getNouvelles() {
+        // Given
         NouvelleRequest nr = new NouvelleRequest("title", "desc");
         nouvelleService.createNouvelle(nr);
+
+        // When
         Iterable<Nouvelle> news = nouvelleService.getNouvelles();
+
+        // Then
         assertNotNull(news);
         assertEquals(1, ((Collection<?>) news).size());
     }
 
     @Test
     void createNouvelle() {
+        // Given
         NouvelleRequest nr = new NouvelleRequest("title", "desc");
         nouvelleService.createNouvelle(nr);
+
+        // When
         Iterable<Nouvelle> news = nouvelleService.getNouvelles();
+
+        // Then
         assertNotNull(news);
         assertEquals(1, ((Collection<?>) news).size());
     }
 
     @Test
     void deleteNouvelle() {
+
+        // Given
         NouvelleRequest nr = new NouvelleRequest("title", "desc");
         nouvelleService.createNouvelle(nr);
         Iterable<Nouvelle> news = nouvelleService.getNouvelles();
@@ -49,8 +61,10 @@ class NouvelleServiceTest {
         assertNotNull(news);
         assertEquals(1, ((Collection<?>) news).size());
 
+        // When
         news.forEach(nouvelle -> nouvelleService.delete(nouvelle.getId()));
 
+        // Then
         news = nouvelleService.getNouvelles();
         assertNotNull(news);
         assertEquals(0, ((Collection<?>) news).size());

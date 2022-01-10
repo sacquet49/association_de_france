@@ -4,6 +4,7 @@ import fr.sacquet.association.web.bean.Nouvelle;
 import fr.sacquet.association.web.model.NouvelleRequest;
 import fr.sacquet.association.web.services.NouvelleService;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import static fr.sacquet.association.web.conf.Constante.PRIVATE_API;
@@ -22,7 +23,7 @@ public class NouvelleController {
     }
 
     @PostMapping(value = PRIVATE_API + "/nouvelle")
-    public Nouvelle createNouvelle(@RequestBody NouvelleRequest nouvelle) {
+    public Nouvelle createNouvelle(@Validated @RequestBody NouvelleRequest nouvelle) {
         return service.createNouvelle(nouvelle);
     }
 
