@@ -1,6 +1,5 @@
 package fr.sacquet.association.web.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.sacquet.association.web.bean.Nouvelle;
 import fr.sacquet.association.web.model.NouvelleRequest;
 import fr.sacquet.association.web.services.NouvelleService;
@@ -20,6 +19,7 @@ import java.util.List;
 
 import static fr.sacquet.association.web.conf.Constante.PRIVATE_API;
 import static fr.sacquet.association.web.conf.Constante.PUBLIC_API;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -83,26 +83,75 @@ class NouvelleControllerTest {
     @Test
     void createNouvelle_useCase() throws Exception {
         // Setup
-        FileInputStream fis = new FileInputStream(BASE_PATH + "nouvelleReturn.json");
+        FileInputStream fis = new FileInputStream(BASE_PATH + "nouvelleCreateReturn.json");
         String data = IOUtils.toString(fis, "UTF-8");
+        FileInputStream fisC = new FileInputStream(BASE_PATH + "nouvelleCreate.json");
+        String dataC = IOUtils.toString(fisC, "UTF-8");
         Nouvelle news = new Nouvelle();
         news.setDescription("description1");
         news.setTitre("title1");
         news.setId(1);
-        NouvelleRequest nr = new NouvelleRequest("title1", "description1");
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(nr);
 
         // Given
-        when(service.createNouvelle(new NouvelleRequest("", ""))).thenReturn(news);
+        when(service.createNouvelle(new NouvelleRequest("title1", "description1"))).thenReturn(news);
+
+        // When
+        String dataResponse = this.mvc.perform(post(PRIVATE_API + "/nouvelle")
+                        .with(jwt())
+                        .content(dataC)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        // Then
+        assertEquals(data.trim(), dataResponse.trim());
+    }
+
+    @Test
+    void createNouvelle_noTitle() throws Exception {
+        // Setup
+        FileInputStream fisC = new FileInputStream(BASE_PATH + "nouvelleCreateNoTitle.json");
+        String dataC = IOUtils.toString(fisC, "UTF-8");
+        Nouvelle news = new Nouvelle();
+        news.setDescription("");
+        news.setTitre("title1");
+        news.setId(1);
+
+        // Given
+        when(service.createNouvelle(new NouvelleRequest("title1", "description1"))).thenReturn(news);
 
         // When and Then
         this.mvc.perform(post(PRIVATE_API + "/nouvelle")
                         .with(jwt())
-                        .content(jsonString)
+                        .content(dataC)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(data.trim()));
+                .andExpect(status().is4xxClientError());
+
+    }
+
+    @Test
+    void createNouvelle_noDescription() throws Exception {
+        // Setup
+        FileInputStream fisC = new FileInputStream(BASE_PATH + "nouvelleCreateNoDescription.json");
+        String dataC = IOUtils.toString(fisC, "UTF-8");
+        Nouvelle news = new Nouvelle();
+        news.setDescription("description1");
+        news.setTitre("");
+        news.setId(1);
+
+        // Given
+        when(service.createNouvelle(new NouvelleRequest("title1", "description1"))).thenReturn(news);
+
+        // When and Then
+        this.mvc.perform(post(PRIVATE_API + "/nouvelle")
+                        .with(jwt())
+                        .content(dataC)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+
     }
 
     @Test

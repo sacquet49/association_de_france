@@ -1,12 +1,15 @@
 package fr.sacquet.association.web.model;
 
-import com.sun.istack.NotNull;
 import lombok.Value;
+
+import javax.validation.constraints.NotBlank;
 
 @Value
 public class NouvelleRequest {
-    @NotNull
+
+    @NotBlank(message = "Titre manquant")
     private String titre;
-    @NotNull
+
+    @NotBlank(message = "Description manquante")
     private String description;
 }
