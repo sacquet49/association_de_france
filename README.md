@@ -13,6 +13,8 @@ Base de données : PostgresSql 13
 
 Indexer NoSql : ElasticSearch / Kibana 7.16 + Application d'indexation spring boot 2 Java 17. 
 
+Api doc : http://localhost:8080/open/api/swagger-ui/index.html
+
 # Installation de l'application
 
 Cette application nécessite docker et la WSL pour être lancé dans un environnement windows.
