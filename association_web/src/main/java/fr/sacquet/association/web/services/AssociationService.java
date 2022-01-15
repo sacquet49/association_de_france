@@ -7,6 +7,8 @@ import fr.sacquet.association.web.dto.StatistiqueRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class AssociationService {
@@ -15,7 +17,12 @@ public class AssociationService {
     private StatistiqueRepository repositoryStat;
 
     public Association getAssociation(String id) {
-        return repository.findById(id).get();
+        Optional<Association> opAsso = repository.findById(id);
+        if (opAsso.isPresent()) {
+            return opAsso.get();
+        } else {
+            return new Association();
+        }
     }
 
     public Iterable<Statistique> getAllStatistique() {
