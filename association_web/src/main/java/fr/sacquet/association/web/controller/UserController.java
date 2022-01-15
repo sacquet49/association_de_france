@@ -13,6 +13,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import static fr.sacquet.association.web.conf.Constante.PRIVATE_API;
@@ -29,7 +30,7 @@ public class UserController {
     private UserService userDetailsService;
 
     @PostMapping(value = PUBLIC_API + "/authenticate")
-    public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public JwtResponse createAuthenticationToken(@Validated @RequestBody JwtRequest authenticationRequest) throws Exception {
         String token = "";
         if (authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword())) {
             final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping(value = PRIVATE_API + "/user")
-    public User saveUser(@RequestBody UserRequest user) {
+    public User saveUser(@Validated @RequestBody UserRequest user) {
         return userDetailsService.save(user);
     }
 
