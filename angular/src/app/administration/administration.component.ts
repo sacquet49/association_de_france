@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ConfirmationService, MessageService} from "primeng/api";
-import {AuthenticationService} from "../authentication/authentication.service";
-import {NouvelleService} from "../services/nouvelle.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {AuthenticationService} from '../authentication/authentication.service';
+import {NouvelleService} from '../services/nouvelle.service';
 
 @Component({
     selector: 'app-administration',
@@ -51,7 +51,7 @@ export class AdministrationComponent implements OnInit {
             accept: () => {
                 this.newsService.removeNouvelle(news.id).subscribe(data => {
                     this.listNouvelle = this.listNouvelle.filter(n => n.id !== news.id);
-                    this.messageService.add({severity: 'success', summary: 'Succès', detail: "Suppression effectuer avec succèes"});
+                    this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Suppression effectuer avec succèes'});
                 });
             }
         });
@@ -61,7 +61,7 @@ export class AdministrationComponent implements OnInit {
         this.newsService.addNouvelle(news).subscribe(data => {
             this.createNews = false;
             this.listNouvelle.push(data);
-            this.messageService.add({severity: 'success', summary: 'Succès', detail: "Nouvelle ajouter avec succèes"});
+            this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Nouvelle ajouter avec succèes'});
             this.newsForm.reset();
         });
     }
@@ -70,24 +70,24 @@ export class AdministrationComponent implements OnInit {
         this.authService.addUser(user).subscribe(data => {
             this.createUtilisateur = false;
             this.listUtilisateurs.push(data);
-            this.messageService.add({severity: 'success', summary: 'Succès', detail: "Utilisateur ajouter avec succèes"});
+            this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Utilisateur ajouter avec succèes'});
             this.newsUtilisateur.reset();
         });
     }
 
-    supprimerUtilisateur(user: any){
+    supprimerUtilisateur(user: any) {
         this.confirmationService.confirm({
             message: 'Etes vous sur de supprimer cette utilisateur ?',
             accept: () => {
                 this.authService.removeUtilisateurs(user.id).subscribe(data => {
                     this.listUtilisateurs = this.listUtilisateurs.filter(n => n.id !== user.id);
-                    this.messageService.add({severity: 'success', summary: 'Succès', detail: "Suppression effectuer avec succèes"});
+                    this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Suppression effectuer avec succèes'});
                 });
             }
         });
     }
 
-    confirmPassword(form){
+    confirmPassword(form) {
        return form.password === form.passwordrepeat;
     }
 }
