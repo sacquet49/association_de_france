@@ -1,7 +1,7 @@
 import {AdresseService} from './services/adresse.service';
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import {AuthenticationService} from './authentication/authentication.service';
+import {AuthenticationService} from './core/authentication/authentication.service';
 
 @Component({
     selector: 'app-root',

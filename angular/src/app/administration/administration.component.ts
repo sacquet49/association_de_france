@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {AuthenticationService} from '../authentication/authentication.service';
+import {AuthenticationService} from '../core/authentication/authentication.service';
 import {NouvelleService} from '../services/nouvelle.service';
 
 @Component({

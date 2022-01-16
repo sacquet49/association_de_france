@@ -102,7 +102,7 @@ export class AssociationWaldecComponent implements OnInit {
             this.selectedAssociationTab = rep ? rep : this.selectedAssociationTab;
             this.location.go(`association_waldec/${this.selectedAssociationTab.id}`);
 
-            const adresse = `${this.selectedAssociationTab.adrs_numvoie} ${this.selectedAssociationTab.adrs_typevoie} ${this.selectedAssociationTab.adrs_libvoie}`;
+            const adresse = `${this.selectedAssociationTab.adrsNumvoie} ${this.selectedAssociationTab.adrsTypevoie} ${this.selectedAssociationTab.adrsLibvoie}`;
             this.adresseService.getGeocodingGouv(adresse + ', ' + this.selectedAssociationTab.adrs_libcommune).subscribe((a: any) => {
                 if (a?.features?.length > 0 && a.features[0]?.geometry?.coordinates?.length > 1) {
                     this.latitude = a.features[0].geometry.coordinates[1];
@@ -114,11 +114,11 @@ export class AssociationWaldecComponent implements OnInit {
 
     getCriteria() {
         if (this.searcheParams.ville) {
-            let criteria = JSON.parse(JSON.stringify(this.query));
+            const criteria = JSON.parse(JSON.stringify(this.query));
             criteria.bool.must.multi_match.query = this.searcheParams.ville;
             return criteria;
         } else {
-            let criteria = JSON.parse(JSON.stringify(this.queryWithNoFilter));
+            const criteria = JSON.parse(JSON.stringify(this.queryWithNoFilter));
             criteria.multi_match.query = this.query.bool.should.multi_match.query;
             return criteria;
         }
