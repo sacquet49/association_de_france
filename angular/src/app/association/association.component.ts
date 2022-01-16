@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {ElasticSearchService} from '../services/elastic-search.service';
 import {AssociationService} from '../services/association.service';
+import {query, queryWithNoFilter} from './association.model';
 
 @Component({
     selector: 'ass-association',
@@ -27,31 +28,12 @@ export class AssociationComponent implements OnInit {
     latitude: number;
     longitude: number;
     subjestAssociation: string[];
-    query = {
-        bool: {
-            should: {
-                multi_match: {
-                    query: '',
-                    fields: ['objet', 'titre'],
-                }
-            },
-            must: {
-                multi_match: {
-                    query: '',
-                    fields: ['libcom', 'adrs_codepostal^2']
-                }
-            }
-        }
-    };
 
-    queryWithNoFilter = {
-        multi_match: {
-            query: '',
-            fields: ['adrs_codepostal', 'objet^2', 'titre^3'],
-        }
-    };
+    get query() {
+        return query;
+    }
 
-    constructor(private adresseService: AdresseService,
+    public constructor(private adresseService: AdresseService,
                 private elkSearchService: ElasticSearchService,
                 private associationComponent: AssociationService,
                 private location: Location,
@@ -59,7 +41,7 @@ export class AssociationComponent implements OnInit {
         this.route.params.subscribe(params => this.id = params.id);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (this.id) {
             this.associationComponent.getAssociation(this.id).subscribe(rep => {
                 this.selectedAssociationTab = rep;
@@ -76,10 +58,10 @@ export class AssociationComponent implements OnInit {
         });
     }
 
-    getVille() {
+    public getVille(): void {
         if (this.departementSelected) {
             this.adresseService.getVilleByRegion(this.departementSelected).subscribe(v => {
-                let ville = v.sort((a, b) => a.nom.localeCompare(b.nom));
+                const ville = v.sort((a, b) => a.nom.localeCompare(b.nom));
                 this.villesDrop = ville.map(vi => ({
                     label: vi.nom,
                     value: `${vi.nom} ${vi.codesPostaux.toString().split(',').join(' ')}`
@@ -88,12 +70,12 @@ export class AssociationComponent implements OnInit {
         }
     }
 
-    backTableau() {
+    public backTableau(): void {
         this.location.go(`association`);
         this.selectedAssociationTab = undefined;
     }
 
-    getMap() {
+    public getMap(): void {
         this.associationComponent.getAssociation(this.selectedAssociationTab.id).subscribe(rep => {
             window.scroll(0, 0);
             this.selectedAssociationTab = rep ? rep : this.selectedAssociationTab;
@@ -108,32 +90,32 @@ export class AssociationComponent implements OnInit {
         });
     }
 
-    getCriteria() {
+    private getCriteria(): any {
         if (this.villeSelected) {
-            let criteria = JSON.parse(JSON.stringify(this.query));
+            const criteria = JSON.parse(JSON.stringify(query));
             criteria.bool.must.multi_match.query = this.villeSelected;
             return criteria;
         } else {
-            let criteria = JSON.parse(JSON.stringify(this.queryWithNoFilter));
-            criteria.multi_match.query = this.query.bool.should.multi_match.query;
+            const criteria = JSON.parse(JSON.stringify(queryWithNoFilter));
+            criteria.multi_match.query = query.bool.should.multi_match.query;
             return criteria;
         }
     }
 
-    rechercher() {
+    public rechercher(): void {
         this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'associations').subscribe(r => {
             this.afficheAssociation(this.elkSearchService.getDocumentsContent(r));
         });
     }
 
-    searchSubjestAsso() {
+    public searchSubjestAsso(): void {
         this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'associations', 20).subscribe(r => {
             this.subjestAssociation = [...new Set(this.elkSearchService.getDocumentsContent(r).map(a => a.titre))];
         });
     }
 
-    afficheAssociation(associations) {
-        if (this.query?.bool?.should?.multi_match?.query?.length > 0) {
+    private afficheAssociation(associations): void {
+        if (query?.bool?.should?.multi_match?.query?.length > 0) {
             this.associations = associations;
         } else {
             this.associations = associations.sort((a, b) => {
@@ -143,11 +125,11 @@ export class AssociationComponent implements OnInit {
         this.dataTableComponent.reset();
     }
 
-    resetFilter() {
+    public resetFilter(): void {
         this.departementSelected = undefined;
         this.villeSelected = undefined;
         this.associations = [];
         this.dataTableComponent.reset();
-        this.query.bool.should.multi_match.query = '';
+        query.bool.should.multi_match.query = '';
     }
 }

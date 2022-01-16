@@ -24,7 +24,7 @@ export class AdministrationComponent implements OnInit {
                 private messageService: MessageService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.newsService.getNouvelles().subscribe(data => {
             this.listNouvelle = data;
         });
@@ -45,7 +45,7 @@ export class AdministrationComponent implements OnInit {
         });
     }
 
-    supprimerNouvelle(news: any) {
+    public supprimerNouvelle(news: any): void {
         this.confirmationService.confirm({
             message: 'Etes vous sur de supprimer cette nouvelle ?',
             accept: () => {
@@ -57,7 +57,7 @@ export class AdministrationComponent implements OnInit {
         });
     }
 
-    ajouterNouvelle(news: any) {
+    public ajouterNouvelle(news: any): void {
         this.newsService.addNouvelle(news).subscribe(data => {
             this.createNews = false;
             this.listNouvelle.push(data);
@@ -66,7 +66,7 @@ export class AdministrationComponent implements OnInit {
         });
     }
 
-    ajouterUtilisateur(user: any) {
+    public ajouterUtilisateur(user: any): void {
         this.authService.addUser(user).subscribe(data => {
             this.createUtilisateur = false;
             this.listUtilisateurs.push(data);
@@ -75,7 +75,7 @@ export class AdministrationComponent implements OnInit {
         });
     }
 
-    supprimerUtilisateur(user: any) {
+    public supprimerUtilisateur(user: any): void {
         this.confirmationService.confirm({
             message: 'Etes vous sur de supprimer cette utilisateur ?',
             accept: () => {
@@ -87,7 +87,7 @@ export class AdministrationComponent implements OnInit {
         });
     }
 
-    confirmPassword(form) {
+    public confirmPassword(form): any {
        return form.password === form.passwordrepeat;
     }
 }

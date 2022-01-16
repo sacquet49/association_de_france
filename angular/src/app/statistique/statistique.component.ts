@@ -14,7 +14,7 @@ export class StatistiqueComponent implements OnInit {
     constructor(private associationService: AssociationService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.associationService.getStatWaldecAssociation().subscribe(res => {
             this.statistique = res.sort((a, b) => {
                 return a.departement - b.departement;

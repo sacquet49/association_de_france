@@ -13,11 +13,11 @@ export class CarteComponent implements AfterViewInit, OnChanges {
     map: any;
     marker: any;
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         this.setInterval();
     }
 
-    setInterval() {
+    private setInterval(): void {
         if (document.getElementById(this.name)) {
             this.map = L.map(this.name, {center: [48.86, 2.35], zoom: 16});
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(this.map);
@@ -25,7 +25,7 @@ export class CarteComponent implements AfterViewInit, OnChanges {
         }
     };
 
-    setMarker() {
+    private setMarker(): void {
         const myIcon = L.icon({iconUrl: 'assets/marker-icon.png'});
         if (this.map && this.latitude && this.longitude) {
             if (this.marker) {
@@ -38,7 +38,7 @@ export class CarteComponent implements AfterViewInit, OnChanges {
         }
     };
 
-    ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges): void {
         this.setMarker();
     }
 }

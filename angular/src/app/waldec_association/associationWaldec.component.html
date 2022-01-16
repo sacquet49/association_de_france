@@ -52,7 +52,7 @@
 
 <div class="p-col-10 p-offset-1">
     <p-table #tableAssociation [value]="associations"
-             [paginator]="true" [rows]="20" dataKey="id" [first]="'first'"
+             [paginator]="true" [rows]="20" dataKey="id" [first]="'0'"
              selectionMode="single" [(selection)]="selectedAssociationTab"
              (onRowSelect)="getMap()" [hidden]="selectedAssociationTab">
         <ng-template pTemplate="emptymessage">

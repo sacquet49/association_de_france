@@ -12,9 +12,9 @@ import {MessageService} from 'primeng/api';
 })
 export class AuthenticationComponent implements OnInit {
 
-    display: boolean = false;
+    display = false;
     loginForm: FormGroup;
-    authError: string = '';
+    authError = '';
     @Output() isConnect = new EventEmitter<any>();
 
     constructor(private formBuilder: FormBuilder,
@@ -24,19 +24,19 @@ export class AuthenticationComponent implements OnInit {
                 private messageService: MessageService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
             'username': ['', Validators.required],
             'password': ['', Validators.required]
         });
     }
 
-    showDialog() {
+    public showDialog(): void {
         this.loginForm.reset();
         this.display = true;
     }
 
-    onSubmit() {
+    public onSubmit(): void {
         this.authenticationService.authenticate(this.loginForm.value).subscribe(data => {
             this.authError = '';
             localStorage.setItem('id_token', data.token);
@@ -49,11 +49,11 @@ export class AuthenticationComponent implements OnInit {
         });
     }
 
-    isConnected() {
+    public isConnected(): any {
         return this.authenticationService.loggedIn();
     }
 
-    deconnection() {
+    public deconnection(): void {
         this.authenticationService.logout();
         this.isConnect.emit(false);
         this.router.navigate(['']);

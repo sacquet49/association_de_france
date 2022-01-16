@@ -10,13 +10,14 @@ import {AdresseService} from '../../services/adresse.service';
                         (completeMethod)="getAdresses($event)"></p-autoComplete>   `,
 })
 export class AdresseSearchComponent {
+
     @Output() adresseSelected = new EventEmitter<any>();
     suggestions: any[] = [];
 
     constructor(private departement: AdresseService) {
     }
 
-    getAdresses(event) {
+    public getAdresses(event): void {
         this.departement.getAdresseGouv(event.query).subscribe((data: any) => {
             this.suggestions = data.features;
         });

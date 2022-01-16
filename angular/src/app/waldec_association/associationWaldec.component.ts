@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Subject} from 'rxjs';
 import {ElasticSearchService} from '../services/elastic-search.service';
 import {AssociationService} from '../services/association.service';
+import {query, queryWithNoFilter} from './associationWaldec.model';
 
 @Component({
     selector: 'ass-association-waldec',
@@ -30,29 +31,10 @@ export class AssociationWaldecComponent implements OnInit {
     latitude: number;
     longitude: number;
     subjestAssociation: string[];
-    query = {
-        bool: {
-            should: {
-                multi_match: {
-                    query: '',
-                    fields: ['objet', 'titre'],
-                }
-            },
-            must: {
-                multi_match: {
-                    query: '',
-                    fields: ['adrs_libcommune', 'adrs_codepostal^2']
-                }
-            }
-        }
-    };
 
-    queryWithNoFilter = {
-        multi_match: {
-            query: '',
-            fields: ['adrs_libcommune', 'objet^2', 'titre^3'],
-        }
-    };
+    get query() {
+        return query;
+    }
 
     constructor(private adresseService: AdresseService,
                 private associationService: AssociationService,
@@ -62,7 +44,7 @@ export class AssociationWaldecComponent implements OnInit {
         this.route.params.subscribe(params => this.id = params.id);
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         if (this.id) {
             this.associationService.getAssociationWaldec(this.id).subscribe(rep => {
                 this.selectedAssociationTab = rep;
@@ -79,7 +61,7 @@ export class AssociationWaldecComponent implements OnInit {
         });
     }
 
-    getVille() {
+    public getVille(): void {
         if (this.departementSelected) {
             this.adresseService.getVilleByRegion(this.departementSelected).subscribe(v => {
                 this.ville = v.sort((a, b) => a.nom.localeCompare(b.nom));
@@ -91,12 +73,12 @@ export class AssociationWaldecComponent implements OnInit {
         }
     }
 
-    backTableau() {
+    public backTableau(): void {
         this.location.go(`association_waldec`);
         this.selectedAssociationTab = undefined;
     }
 
-    getMap() {
+    public getMap(): void {
         this.associationService.getAssociationWaldec(this.selectedAssociationTab.id).subscribe(rep => {
             window.scroll(0, 0);
             this.selectedAssociationTab = rep ? rep : this.selectedAssociationTab;
@@ -112,32 +94,32 @@ export class AssociationWaldecComponent implements OnInit {
         })
     }
 
-    getCriteria() {
+    private getCriteria(): any {
         if (this.searcheParams.ville) {
-            const criteria = JSON.parse(JSON.stringify(this.query));
+            const criteria = JSON.parse(JSON.stringify(query));
             criteria.bool.must.multi_match.query = this.searcheParams.ville;
             return criteria;
         } else {
-            const criteria = JSON.parse(JSON.stringify(this.queryWithNoFilter));
-            criteria.multi_match.query = this.query.bool.should.multi_match.query;
+            const criteria = JSON.parse(JSON.stringify(queryWithNoFilter));
+            criteria.multi_match.query = query.bool.should.multi_match.query;
             return criteria;
         }
     }
 
-    rechercher() {
+    public rechercher(): void {
         this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'waldec_association').subscribe(r => {
             this.afficheAssociation(this.elkSearchService.getDocumentsContent(r));
         });
     }
 
-    searchSubjestAsso() {
+    public searchSubjestAsso(): void {
         this.elkSearchService.getDocumentsWithScrollFirstPage(this.getCriteria(), 'waldec_association', 20).subscribe(r => {
             this.subjestAssociation = [...new Set(this.elkSearchService.getDocumentsContent(r).map(a => a.titre))];
         });
     }
 
-    afficheAssociation(associations) {
-        if (this.query?.bool?.should?.multi_match?.query.length > 0) {
+    private afficheAssociation(associations): void {
+        if (query?.bool?.should?.multi_match?.query.length > 0) {
             this.associations = associations;
         } else {
             this.associations = associations.sort((a, b) => {
@@ -147,11 +129,11 @@ export class AssociationWaldecComponent implements OnInit {
         this.dataTableComponent.reset();
     }
 
-    resetFilter() {
+    public resetFilter(): void {
         this.departementSelected = undefined;
         this.searcheParams.ville = undefined;
         this.associations = [];
         this.dataTableComponent.reset();
-        this.query.bool.should.multi_match.query = '';
+        query.bool.should.multi_match.query = '';
     }
 }
