@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {User} from '../../administration/administration.model';
 
 @Injectable()
 export class AuthenticationService {
@@ -13,14 +14,14 @@ export class AuthenticationService {
         return this.http.post(`open/api/authenticate`, user);
     }
 
-    addUser(user: any): Observable<any> {
+    addUser(user: any): Observable<User> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.post(`private/api/user`, user, {headers});
+        return this.http.post<User>(`private/api/user`, user, {headers});
     }
 
-    getUtilisateurs(): Observable<any> {
+    getUtilisateurs(): Observable<User[]> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('id_token')}`);
-        return this.http.get(`private/api/users`, {headers});
+        return this.http.get<User[]>(`private/api/users`, {headers});
     }
 
     removeUtilisateurs(id: any): Observable<any> {

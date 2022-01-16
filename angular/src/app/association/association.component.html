@@ -3,7 +3,7 @@
 <div *ngIf="!selectedAssociationTab">
     <div class="p-grid p-col-10 p-offset-1">
         <div class="p-col-3">
-            <p-dropdown [options]="departementsDrop" [(ngModel)]="departementSelected"
+            <p-dropdown [options]="departementsDrop" [(ngModel)]="searcheParams.departement"
                         [style]="{'width':'100%'}" filter="true" (onChange)="getVille()"
                         [showClear]="true" placeholder="Département">
                 <ng-template let-item pTemplate="selectedItem">
@@ -17,7 +17,7 @@
             </p-dropdown>
         </div>
         <div class="p-col-3">
-            <p-dropdown [options]="villesDrop" [(ngModel)]="villeSelected"
+            <p-dropdown [options]="villesDrop" [(ngModel)]="searcheParams.ville"
                         [style]="{'width':'100%'}" filter="true" (onChange)="rechercher()"
                         [showClear]="true" placeholder="Ville">
                 <ng-template let-item pTemplate="selectedItem">
@@ -52,7 +52,7 @@
 
 <div class="p-col-10 p-offset-1">
     <p-table #tableAssociation [value]="associations"
-             [paginator]="true" [rows]="20" dataKey="id" [first]="'first'"
+             [paginator]="true" [rows]="20" dataKey="id" [first]="0"
              selectionMode="single" [(selection)]="selectedAssociationTab"
              (onRowSelect)="getMap()" [hidden]="selectedAssociationTab">
         <ng-template pTemplate="emptymessage">
