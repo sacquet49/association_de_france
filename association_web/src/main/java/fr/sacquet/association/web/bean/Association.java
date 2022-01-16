@@ -1,6 +1,7 @@
 package fr.sacquet.association.web.bean;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,11 +10,10 @@ import java.sql.Date;
 @Table(name = "association")
 @Data
 public class Association {
-    @SequenceGenerator(name = "association_id_seq",
-            sequenceName = "association_id_seq",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="association_id_seq")
+
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "id")
     private String id;
     
