@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {AdresseService} from './adresse.service';
+import {AdresseService} from '../../services/adresse.service';
 
 @Component({
     selector: 'adresse-search',
@@ -10,15 +10,22 @@ import {AdresseService} from './adresse.service';
                         (completeMethod)="getAdresses($event)"></p-autoComplete>   `,
 })
 export class AdresseSearchComponent {
-    @Output() adresseSelected = new EventEmitter<any>();
-    suggestions: any[] = [];
+
+    @Output()
+    adresseSelected = new EventEmitter<any>();
+
+    private _suggestions: any[] = [];
+
+    get suggestions(): any[] {
+        return this._suggestions;
+    }
 
     constructor(private departement: AdresseService) {
     }
 
-    getAdresses(event) {
+    public getAdresses(event): void {
         this.departement.getAdresseGouv(event.query).subscribe((data: any) => {
-            this.suggestions = data.features;
+            this._suggestions = data.features;
         });
     }
 }

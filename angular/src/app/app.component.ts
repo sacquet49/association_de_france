@@ -1,12 +1,12 @@
 import {AdresseService} from './services/adresse.service';
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import {AuthenticationService} from './authentication/authentication.service';
+import {AuthentificationService} from './core/authentication/authentification.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    providers: [AdresseService, AuthenticationService]
+    providers: [AdresseService, AuthentificationService]
 })
 export class AppComponent implements OnInit {
 
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
         {label: 'Associations après 2009', icon: 'pi pi-list', routerLink: 'association_waldec'},
     ];
 
-    constructor(private authService: AuthenticationService) {
+    constructor(private authService: AuthentificationService) {
     }
 
     ngOnInit(): void {
