@@ -11,15 +11,21 @@ import {AdresseService} from '../../services/adresse.service';
 })
 export class AdresseSearchComponent {
 
-    @Output() adresseSelected = new EventEmitter<any>();
-    suggestions: any[] = [];
+    @Output()
+    adresseSelected = new EventEmitter<any>();
+
+    private _suggestions: any[] = [];
+
+    get suggestions(): any[] {
+        return this._suggestions;
+    }
 
     constructor(private departement: AdresseService) {
     }
 
     public getAdresses(event): void {
         this.departement.getAdresseGouv(event.query).subscribe((data: any) => {
-            this.suggestions = data.features;
+            this._suggestions = data.features;
         });
     }
 }

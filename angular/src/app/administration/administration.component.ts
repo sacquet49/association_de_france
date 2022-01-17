@@ -1,44 +1,78 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {AuthenticationService} from '../core/authentication/authentication.service';
+import {AuthentificationService} from '../core/authentication/authentification.service';
 import {NouvelleService} from '../services/nouvelle.service';
+import {Nouvelle, User} from './administration.model';
 
 @Component({
     selector: 'app-administration',
     templateUrl: './administration.component.html',
+    styleUrls: ['./administration.component.css']
 })
 export class AdministrationComponent implements OnInit {
 
-    listNouvelle: any = [];
-    createNews = false;
-    newsForm: FormGroup;
-    listUtilisateurs: any = [];
-    createUtilisateur = false;
-    newsUtilisateur: FormGroup;
+    private _listNouvelle: Nouvelle[] = [];
+    private _createNews = false;
+    private _newsForm: FormGroup;
+    private _listUtilisateurs: User[] = [];
+    private _createUtilisateur = false;
+    private _newsUtilisateur: FormGroup;
+
+    get createNews(): boolean {
+        return this._createNews;
+    }
+
+    set createNews(news) {
+        this._createNews = news;
+    }
+
+    get listNouvelle(): Nouvelle[] {
+        return this._listNouvelle;
+    }
+
+    get newsForm(): FormGroup {
+        return this._newsForm;
+    }
+
+    get createUtilisateur(): boolean {
+        return this._createUtilisateur;
+    }
+
+    get listUtilisateurs(): User[] {
+        return this._listUtilisateurs;
+    }
+
+    get newsUtilisateur(): FormGroup {
+        return this._newsUtilisateur;
+    }
+
+    set createUtilisateur(news) {
+        this._createUtilisateur = news;
+    }
 
     constructor(private newsService: NouvelleService,
                 private confirmationService: ConfirmationService,
-                private authService: AuthenticationService,
+                private authService: AuthentificationService,
                 private fb: FormBuilder,
                 private messageService: MessageService) {
     }
 
     public ngOnInit(): void {
         this.newsService.getNouvelles().subscribe(data => {
-            this.listNouvelle = data;
+            this._listNouvelle = data;
         });
 
         this.authService.getUtilisateurs().subscribe(data => {
-            this.listUtilisateurs = data;
+            this._listUtilisateurs = data;
         });
 
-        this.newsForm = this.fb.group({
+        this._newsForm = this.fb.group({
             'titre': new FormControl('', Validators.required),
             'description': new FormControl('', Validators.required)
         });
 
-        this.newsUtilisateur = this.fb.group({
+        this._newsUtilisateur = this.fb.group({
             'username': new FormControl('', Validators.required),
             'password': new FormControl('', Validators.required),
             'passwordrepeat': new FormControl('', Validators.required)
@@ -50,8 +84,12 @@ export class AdministrationComponent implements OnInit {
             message: 'Etes vous sur de supprimer cette nouvelle ?',
             accept: () => {
                 this.newsService.removeNouvelle(news.id).subscribe(data => {
-                    this.listNouvelle = this.listNouvelle.filter(n => n.id !== news.id);
-                    this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Suppression effectuer avec succèes'});
+                    this._listNouvelle = this._listNouvelle.filter(n => n.id !== news.id);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Succès',
+                        detail: 'Suppression effectuer avec succèes'
+                    });
                 });
             }
         });
@@ -59,19 +97,23 @@ export class AdministrationComponent implements OnInit {
 
     public ajouterNouvelle(news: any): void {
         this.newsService.addNouvelle(news).subscribe(data => {
-            this.createNews = false;
-            this.listNouvelle.push(data);
+            this._createNews = false;
+            this._listNouvelle.push(data);
             this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Nouvelle ajouter avec succèes'});
-            this.newsForm.reset();
+            this._newsForm.reset();
         });
     }
 
     public ajouterUtilisateur(user: any): void {
         this.authService.addUser(user).subscribe(data => {
-            this.createUtilisateur = false;
-            this.listUtilisateurs.push(data);
-            this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Utilisateur ajouter avec succèes'});
-            this.newsUtilisateur.reset();
+            this._createUtilisateur = false;
+            this._listUtilisateurs.push(data);
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Succès',
+                detail: 'Utilisateur ajouter avec succèes'
+            });
+            this._newsUtilisateur.reset();
         });
     }
 
@@ -80,14 +122,18 @@ export class AdministrationComponent implements OnInit {
             message: 'Etes vous sur de supprimer cette utilisateur ?',
             accept: () => {
                 this.authService.removeUtilisateurs(user.id).subscribe(data => {
-                    this.listUtilisateurs = this.listUtilisateurs.filter(n => n.id !== user.id);
-                    this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Suppression effectuer avec succèes'});
+                    this._listUtilisateurs = this._listUtilisateurs.filter(n => n.id !== user.id);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Succès',
+                        detail: 'Suppression effectuer avec succèes'
+                    });
                 });
             }
         });
     }
 
     public confirmPassword(form): any {
-       return form.password === form.passwordrepeat;
+        return form.password === form.passwordrepeat;
     }
 }

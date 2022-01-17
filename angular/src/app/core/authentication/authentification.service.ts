@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {User} from '../../administration/administration.model';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthentificationService {
 
     constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {
     }

@@ -15,7 +15,7 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {AdministrationComponent} from './administration/administration.component';
 import {AuthGuard} from './core/guard';
 import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
-import {AuthenticationService} from './core/authentication/authentication.service';
+import {AuthentificationService} from './core/authentication/authentification.service';
 import {StatistiqueComponent} from './statistique/statistique.component';
 import {AdresseService} from './services/adresse.service';
 import {NouvelleService} from './services/nouvelle.service';
@@ -71,7 +71,7 @@ export function tokenGetter() {
         JwtHelperService,
         AuthGuard,
         MessageService,
-        AuthenticationService,
+        AuthentificationService,
         AdresseService,
         NouvelleService,
         AssociationService,

@@ -1,4 +1,4 @@
-<div class="card card-w-title" style="margin-bottom: 1rem">
+<div class="card card-w-title body-admin">
     <p-tabView>
 
         <p-tabPanel header="Nouvelles">
@@ -39,7 +39,7 @@
                     <h2>Création d'une nouvelle</h2>
 
                     <form [formGroup]="newsForm" (ngSubmit)="ajouterNouvelle(newsForm.value)">
-                        <div style="margin: 10px 0px">
+                        <div class="form-margin">
 
                             <div class="p-field p-grid">
                                 <label class="p-col-2">
@@ -130,7 +130,7 @@
                     <h2>Création d'un nouvelle utilisateur</h2>
 
                     <form [formGroup]="newsUtilisateur" (ngSubmit)="ajouterUtilisateur(newsUtilisateur.value)">
-                        <div style="margin: 10px 0px">
+                        <div class="form-margin">
 
                             <div class="p-field p-grid">
                                 <label class="p-col-2">

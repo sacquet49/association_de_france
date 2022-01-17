@@ -16,7 +16,7 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {NotificationComponent} from './notification/notification.component';
 import {HomeComponent} from './home/home.component';
-import {AuthenticationComponent} from './authentication/authentication.component';
+import {AuthentificationComponent} from './authentication/authentification.component';
 import {DialogModule} from 'primeng/dialog';
 import {PasswordModule} from 'primeng/password';
 
@@ -26,7 +26,7 @@ import {PasswordModule} from 'primeng/password';
         AdresseSearchComponent,
         NotificationComponent,
         HomeComponent,
-        AuthenticationComponent
+        AuthentificationComponent
     ],
     imports: [
         CommonModule,
@@ -51,7 +51,7 @@ import {PasswordModule} from 'primeng/password';
     exports: [
         CarteComponent,
         NotificationComponent,
-        AuthenticationComponent
+        AuthentificationComponent
     ]
 })
 export class CoreModule {
