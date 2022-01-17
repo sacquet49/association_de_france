@@ -9,7 +9,7 @@ Back : Spring boot 2, JAVA 17
 
 Front : PrimeNg, Angular 13, cartographie leaflet
 
-Base de données : PostgresSql 13
+Base de données : PostgresSql 14
 
 Indexer NoSql : ElasticSearch / Kibana 7.16 + Application d'indexation spring boot 2 Java 17. 
 
