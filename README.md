@@ -15,6 +15,8 @@ Indexer NoSql : ElasticSearch / Kibana 7.16 + Application d'indexation spring bo
 
 Api doc : http://localhost:8080/open/api/swagger-ui/index.html
 
+![Architecture applicative](preview/archi.jpg)
+
 # Installation de l'application
 
 Cette application nécessite docker et la WSL pour être lancé dans un environnement windows.
