@@ -10,7 +10,7 @@ import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AssociationWaldecComponent} from './waldec_association/associationWaldec.component';
 import {HomeComponent} from './core/home/home.component';
-import {ErreurInterceptor} from './http-interceptor';
+import {ErreurInterceptor} from './core/http-interceptor';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {AdministrationComponent} from './administration/administration.component';
 import {AuthGuard} from './core/guard';

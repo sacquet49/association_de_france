@@ -19,6 +19,7 @@ import {HomeComponent} from './home/home.component';
 import {AuthentificationComponent} from './authentication/authentification.component';
 import {DialogModule} from 'primeng/dialog';
 import {PasswordModule} from 'primeng/password';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import {PasswordModule} from 'primeng/password';
     ],
     imports: [
         CommonModule,
+        InputTextModule,
         FormsModule,
         ChartModule,
         TableModule,
