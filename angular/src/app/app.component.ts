@@ -1,17 +1,20 @@
 import {AdresseService} from './services/adresse.service';
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit, ViewChild} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {AuthentificationService} from './core/authentication/authentification.service';
+import {TabMenu} from 'primeng/tabmenu/tabmenu';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     providers: [AdresseService, AuthentificationService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
 
+    @ViewChild('tabMenu')
+    private _tabMenuObjet: TabMenu;
     private _tabMenuItems: MenuItem[];
-    private _tabMenuItemsBase = [
+    private _tabMenuItemsBase: MenuItem[] = [
         {label: '', icon: 'pi pi-home', routerLink: 'home'},
         {label: 'Associations avant 2009', icon: 'pi pi-list', routerLink: 'association'},
         {label: 'Associations après 2009', icon: 'pi pi-list', routerLink: 'association_waldec'},
@@ -22,6 +25,10 @@ export class AppComponent implements OnInit {
     }
 
     constructor(private authService: AuthentificationService) {
+    }
+
+    public ngAfterViewChecked(): void {
+        this._tabMenuObjet.updateInkBar();
     }
 
     public ngOnInit(): void {
