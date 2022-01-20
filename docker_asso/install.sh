@@ -4,7 +4,8 @@ SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 generateCertificat () {
 	openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout ./nginx/certs/privateKey.key -out ./nginx/certs/certificate.crt \
-	-subj "/C=FR/ST=Nantes/L=Nantes/O=Global Security/OU=IT Department/CN=localhost"
+	-subj '/C=FR/ST=Nantes/L=Nantes/O=Global Security/OU=IT Department/CN=localhost' -extensions EXT -config <( \
+     printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 }
 
 compilation () {
