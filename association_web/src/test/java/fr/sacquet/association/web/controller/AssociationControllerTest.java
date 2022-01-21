@@ -34,7 +34,7 @@ class AssociationControllerTest {
     private static final String BASE_PATH = "src/test/resources/controller/association/";
 
     @Test
-    void getWaldecAssociation_useCase() throws Exception {
+    void getAssociation_useCase() throws Exception {
         // Setup
         FileInputStream fis = new FileInputStream(BASE_PATH + "assoReturn.json");
         String data = IOUtils.toString(fis, "UTF-8");
@@ -52,7 +52,7 @@ class AssociationControllerTest {
     }
 
     @Test
-    void getWaldecAssociation_wrongId() throws Exception {
+    void getAssociation_wrongId() throws Exception {
         // Setup
         FileInputStream fis = new FileInputStream(BASE_PATH + "assoReturnWrongId.json");
         String data = IOUtils.toString(fis, "UTF-8");

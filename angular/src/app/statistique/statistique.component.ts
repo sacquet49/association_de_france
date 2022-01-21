@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AssociationService} from '../services/association.service';
+import {DataChartBar, WaldecAssociationStat} from './statistique.model';
 
 @Component({
     selector: 'app-statistique',
@@ -7,8 +8,8 @@ import {AssociationService} from '../services/association.service';
 })
 export class StatistiqueComponent implements OnInit {
 
-    private _statistique: any = [];
-    private _data: any;
+    private _statistique: WaldecAssociationStat[] = [];
+    private _data: DataChartBar;
 
     get data(): any {
         return this._data;
@@ -20,16 +21,16 @@ export class StatistiqueComponent implements OnInit {
     public ngOnInit(): void {
         this.associationService.getStatWaldecAssociation().subscribe(res => {
             this._statistique = res.sort((a, b) => {
-                return a.departement - b.departement;
+                return a.departement.localeCompare(b.departement, 'fr');
             });
             this._data = {
                 labels: this._statistique.map(s => s.departement),
                 datasets: [
                     {
-                        label: 'Nombres d\'association',
+                        label: 'Nombre d\'associations',
                         backgroundColor: '#42A5F5',
                         borderColor: '#1E88E5',
-                        data: this._statistique.map(s => s.nombre_association)
+                        data: this._statistique.map(s => s.count)
                     },
                 ]
             }
