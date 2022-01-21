@@ -2,7 +2,7 @@ package fr.sacquet.association.web.controller;
 
 
 import fr.sacquet.association.web.bean.WaldecAssociation;
-import fr.sacquet.association.web.bean.WaldecAssociationStat;
+import fr.sacquet.association.web.model.AssociationStat;
 import fr.sacquet.association.web.services.WaldecAssociationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ public class WaldecAssociationController {
     }
 
     @GetMapping(value = PRIVATE_API + "/association_waldec/statistique")
-    public Iterable<WaldecAssociationStat> getAllStatistique() {
+    public Iterable<AssociationStat> getAllStatistique() {
         return service.statWaldecAssociation();
     }
 }

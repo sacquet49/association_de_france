@@ -1,12 +1,12 @@
 package fr.sacquet.association.web.services;
 
 import fr.sacquet.association.web.bean.Association;
-import fr.sacquet.association.web.bean.Statistique;
 import fr.sacquet.association.web.dto.AssociationRepository;
-import fr.sacquet.association.web.dto.StatistiqueRepository;
+import fr.sacquet.association.web.model.AssociationStat;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,7 +14,6 @@ import java.util.Optional;
 public class AssociationService {
 
     private AssociationRepository repository;
-    private StatistiqueRepository repositoryStat;
 
     public Association getAssociation(String id) {
         Optional<Association> opAsso = repository.findById(id);
@@ -25,7 +24,7 @@ public class AssociationService {
         }
     }
 
-    public Iterable<Statistique> getAllStatistique() {
-        return repositoryStat.findAll();
+    public List<AssociationStat> statAssociation() {
+        return repository.statAssociation();
     }
 }

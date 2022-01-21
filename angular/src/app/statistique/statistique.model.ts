@@ -1,4 +1,4 @@
-export class WaldecAssociationStat {
+export class AssociationStat {
     departement: string;
     count: number;
 }
