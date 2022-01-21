@@ -4,7 +4,7 @@
     <div class="p-grid p-col-10 p-offset-1">
         <div class="p-col-3">
             <p-dropdown [options]="departementsDrop" [(ngModel)]="searcheParams.departement"
-                        [style]="{'width':'100%'}" filter="true" (onChange)="getVille()"
+                        [styleClass]="'w-100'" filter="true" (onChange)="getVille()"
                         [showClear]="true" placeholder="Département">
                 <ng-template let-item pTemplate="selectedItem">
                     <span>{{item.label}}</span>
@@ -18,7 +18,7 @@
         </div>
         <div class="p-col-3">
             <p-dropdown [options]="villesDrop" [(ngModel)]="searcheParams.ville"
-                        [style]="{'width':'100%'}" filter="true" (onChange)="rechercher()"
+                        [styleClass]="'w-100'" filter="true" (onChange)="rechercher()"
                         [showClear]="true" placeholder="Ville">
                 <ng-template let-item pTemplate="selectedItem">
                     <span>{{item.label}}</span>
@@ -41,11 +41,11 @@
         </div>
         <div class="p-col-2">
             <button pButton type="button" label="Rechercher" pTooltip="Rechercher"
-                    [style]="{'width':'100%'}" (click)="rechercher()"></button>
+                    class="w-100" (click)="rechercher()"></button>
         </div>
         <div class="p-col-1">
             <button pButton type="button" label="Vider" pTooltip="Vider les champs de recherche"
-                    [style]="{'width':'100%'}" (click)="resetFilter()"></button>
+                    class="w-100" (click)="resetFilter()"></button>
         </div>
     </div>
 </div>

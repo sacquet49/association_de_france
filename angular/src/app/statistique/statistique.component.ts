@@ -3,8 +3,7 @@ import {AssociationService} from '../services/association.service';
 
 @Component({
     selector: 'app-statistique',
-    templateUrl: './statistique.component.html',
-    styleUrls: ['./statistique.component.css']
+    templateUrl: './statistique.component.html'
 })
 export class StatistiqueComponent implements OnInit {
 
