@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    HOST_ELK: ''
+    HOST_ELK: '/'
 };
