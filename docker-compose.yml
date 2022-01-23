@@ -5,6 +5,9 @@ services:
         build: angular
         volumes:
             - ./angular:/usr/app
+            - ./angular/logs:/root/.npm/_logs/
+            - /usr/app/node_modules
+            - /usr/app/.angular
 
     association-web:
       container_name: association-web
