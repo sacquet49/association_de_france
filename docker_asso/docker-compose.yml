@@ -71,7 +71,7 @@ services:
             - ./nginx/certbot/logs/:/var/log/letsencrypt
         depends_on:
             - nginx
-        command: certonly -v --webroot --webroot-path /var/www/certbot/ --email your-email@sacquet-association.org --agree-tos -d sacquet-association.org -d www.sacquet-association.org
+        command: certonly -v --webroot --webroot-path /var/www/certbot/ --email your-email@sacquet-association.link --agree-tos -d www.sacquet-association.link
 
     import:
         container_name: import-association
